@@ -230,9 +230,11 @@ wss.on('connection', (ws) => {
       case 'playerState': {
         // Relay player position/rotation to other players
         if (!playerRoom) break;
+        const playerData = playerRoom.players.get(ws);
         broadcast(playerRoom, {
           type: 'playerState',
           playerId,
+          name: playerData ? playerData.name : playerId,
           x: msg.x, y: msg.y, z: msg.z,
           yaw: msg.yaw, pitch: msg.pitch,
           weapon: msg.weapon, health: msg.health
