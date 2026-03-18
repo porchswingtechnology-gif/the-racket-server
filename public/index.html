@@ -4283,38 +4283,118 @@
   let stateInterval = null;
   let lobbyPlayers = [];
 
-  // Other player mesh (simplified gangster in blue suit)
-  function createOtherPlayerMesh() {
-    const group = new THREE.Group();
-    const suitMat = new THREE.MeshStandardMaterial({ color: 0x1a2a4a, roughness: 0.5, metalness: 0.2 });
-    const skinMat = new THREE.MeshStandardMaterial({ color: 0xd4a878, roughness: 0.8 });
+  // Player suit colors — each player gets a unique color
+  const PLAYER_COLORS = [
+    { suit: 0x1a2a5a, hat: 0x1a2a5a, accent: 0x4488cc, label: 'Navy' },      // P1 - Navy blue
+    { suit: 0x5a1a2a, hat: 0x5a1a2a, accent: 0xcc4466, label: 'Crimson' },    // P2 - Crimson
+    { suit: 0x1a4a2a, hat: 0x1a4a2a, accent: 0x44aa66, label: 'Emerald' },    // P3 - Emerald
+    { suit: 0x4a3a1a, hat: 0x4a3a1a, accent: 0xccaa44, label: 'Amber' },      // P4 - Amber
+  ];
 
-    // Body
+  function getPlayerColor(playerId) {
+    const idx = parseInt(playerId.replace('P', '')) - 1;
+    return PLAYER_COLORS[idx % PLAYER_COLORS.length];
+  }
+
+  // Other player mesh — full gangster with legs, arms, and name tag
+  function createOtherPlayerMesh(playerId, playerName) {
+    const colors = getPlayerColor(playerId);
+    const group = new THREE.Group();
+    const suitMat = new THREE.MeshStandardMaterial({ color: colors.suit, roughness: 0.5, metalness: 0.2 });
+    const skinMat = new THREE.MeshStandardMaterial({ color: 0xd4a878, roughness: 0.8 });
+    const shoeMat = new THREE.MeshStandardMaterial({ color: 0x1a1208, roughness: 0.7 });
+    const accentMat = new THREE.MeshStandardMaterial({ color: colors.accent, roughness: 0.4, metalness: 0.3 });
+
+    // ---- LEGS ----
+    const leftThigh = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.6, 0.28), suitMat);
+    leftThigh.position.set(-0.18, -0.3, 0); group.add(leftThigh);
+    const leftShin = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.55, 0.25), suitMat);
+    leftShin.position.set(-0.18, -0.85, 0); group.add(leftShin);
+    const leftShoe = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.12, 0.35), shoeMat);
+    leftShoe.position.set(-0.18, -1.15, 0.04); group.add(leftShoe);
+
+    const rightThigh = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.6, 0.28), suitMat);
+    rightThigh.position.set(0.18, -0.3, 0); group.add(rightThigh);
+    const rightShin = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.55, 0.25), suitMat);
+    rightShin.position.set(0.18, -0.85, 0); group.add(rightShin);
+    const rightShoe = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.12, 0.35), shoeMat);
+    rightShoe.position.set(0.18, -1.15, 0.04); group.add(rightShoe);
+
+    // ---- TORSO ----
     const body = new THREE.Mesh(new THREE.BoxGeometry(0.7, 1.0, 0.45), suitMat);
     body.position.y = 0.5; group.add(body);
-    // Shoulders
     const shoulders = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.15, 0.5), suitMat);
     shoulders.position.y = 1.0; group.add(shoulders);
-    // Head
+
+    // Tie / accent
+    const tie = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.4, 0.06), accentMat);
+    tie.position.set(0, 0.6, 0.23); group.add(tie);
+
+    // ---- ARMS ----
+    const leftArm = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.7, 0.2), suitMat);
+    leftArm.position.set(-0.55, 0.55, 0); group.add(leftArm);
+    const leftHand = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.16, 0.14), skinMat);
+    leftHand.position.set(-0.55, 0.12, 0); group.add(leftHand);
+
+    const rightArm = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.6, 0.2), suitMat);
+    rightArm.position.set(0.55, 0.6, 0.05); group.add(rightArm);
+    const rightForearm = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.16, 0.4), suitMat);
+    rightForearm.position.set(0.55, 0.3, 0.3); group.add(rightForearm);
+    const rightHand = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.14, 0.13), skinMat);
+    rightHand.position.set(0.55, 0.3, 0.52); group.add(rightHand);
+
+    // Gun in hand
+    const gun = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.1, 0.28),
+      new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.3 }));
+    gun.position.set(0.55, 0.32, 0.7); group.add(gun);
+
+    // ---- HEAD ----
     const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.45, 0.4), skinMat);
     head.position.y = 1.4; group.add(head);
-    // Fedora
-    const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.42, 0.06, 6),
-      new THREE.MeshStandardMaterial({ color: 0x1a2a4a, roughness: 0.6 }));
+
+    // Fedora (player colored)
+    const hatMat = new THREE.MeshStandardMaterial({ color: colors.hat, roughness: 0.6 });
+    const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.42, 0.06, 6), hatMat);
     brim.position.y = 1.68; group.add(brim);
-    const crown = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.26, 0.22, 6),
-      new THREE.MeshStandardMaterial({ color: 0x1a2a4a, roughness: 0.6 }));
+    const crown = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.26, 0.22, 6), hatMat);
     crown.position.y = 1.79; group.add(crown);
-    // Gold hat band
-    const band = new THREE.Mesh(new THREE.CylinderGeometry(0.27, 0.27, 0.04, 6),
-      new THREE.MeshStandardMaterial({ color: 0xc9a84c, metalness: 0.7, roughness: 0.3 }));
+    // Accent hat band
+    const band = new THREE.Mesh(new THREE.CylinderGeometry(0.27, 0.27, 0.04, 6), accentMat);
     band.position.y = 1.7; group.add(band);
-    // Legs
-    for (const sx of [-0.18, 0.18]) {
-      const leg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.8, 0.25), suitMat);
-      leg.position.set(sx, -0.4, 0); group.add(leg);
-    }
-    // Name tag will be added separately
+
+    // ---- NAME TAG (canvas texture sprite) ----
+    const nameCanvas = document.createElement('canvas');
+    nameCanvas.width = 256;
+    nameCanvas.height = 64;
+    const ctx = nameCanvas.getContext('2d');
+    ctx.fillStyle = 'rgba(0,0,0,0)';
+    ctx.clearRect(0, 0, 256, 64);
+    ctx.font = 'bold 28px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    // Shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.6)';
+    ctx.fillText(playerName || playerId, 129, 33);
+    // Text in accent color
+    const r = (colors.accent >> 16) & 0xff;
+    const g = (colors.accent >> 8) & 0xff;
+    const b = colors.accent & 0xff;
+    ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+    ctx.fillText(playerName || playerId, 128, 32);
+
+    const nameTexture = new THREE.CanvasTexture(nameCanvas);
+    const nameMat = new THREE.SpriteMaterial({ map: nameTexture, transparent: true, depthTest: false });
+    const nameSprite = new THREE.Sprite(nameMat);
+    nameSprite.scale.set(2.0, 0.5, 1);
+    nameSprite.position.y = 2.6;
+    group.add(nameSprite);
+
+    // Store leg refs for walking animation
+    group.userData = {
+      leftThigh, leftShin, leftShoe,
+      rightThigh, rightShin, rightShoe,
+      leftArm, rightArm
+    };
 
     group.scale.set(0.75, 0.75, 0.75);
     group.position.y = 1.04;
@@ -4325,10 +4405,15 @@
   // Create/get other player
   function getOrCreateOtherPlayer(playerId, name) {
     if (otherPlayers.has(playerId)) return otherPlayers.get(playerId);
-    const mesh = createOtherPlayerMesh();
+    const mesh = createOtherPlayerMesh(playerId, name);
     mesh.position.set(0, 1.04, 30); // start at door
     scene.add(mesh);
-    const obj = { mesh, targetX: 0, targetY: 2, targetZ: 30, targetYaw: 0, weapon: 'revolver', health: 100, name: name || playerId };
+    const obj = {
+      mesh, targetX: 0, targetY: 2, targetZ: 30, targetYaw: 0,
+      prevX: 0, prevZ: 30, // for movement detection
+      weapon: 'revolver', health: 100, name: name || playerId,
+      walkPhase: Math.random() * Math.PI * 2 // offset so players don't sync
+    };
     otherPlayers.set(playerId, obj);
     return obj;
   }
@@ -4498,7 +4583,7 @@
 
       case 'playerState': {
         if (msg.playerId === myPlayerId) break;
-        const op = getOrCreateOtherPlayer(msg.playerId, msg.playerId);
+        const op = getOrCreateOtherPlayer(msg.playerId, msg.name || msg.playerId);
         op.targetX = msg.x;
         op.targetY = msg.y;
         op.targetZ = msg.z;
@@ -5306,14 +5391,54 @@
     // ---- INTERPOLATE OTHER PLAYERS ----
     for (const [pid, op] of otherPlayers) {
       // Smooth position interpolation
+      const prevPosX = op.mesh.position.x;
+      const prevPosZ = op.mesh.position.z;
       op.mesh.position.x += (op.targetX - op.mesh.position.x) * 0.15;
       op.mesh.position.z += (op.targetZ - op.mesh.position.z) * 0.15;
-      op.mesh.position.y = 1.04;
+
+      // Detect movement for walk animation
+      const dx = op.mesh.position.x - prevPosX;
+      const dz = op.mesh.position.z - prevPosZ;
+      const moveSpeed = Math.sqrt(dx * dx + dz * dz);
+      const isMoving = moveSpeed > 0.005;
+
       // Smooth rotation
       let yawDiff = op.targetYaw - op.mesh.rotation.y;
       while (yawDiff > Math.PI) yawDiff -= Math.PI * 2;
       while (yawDiff < -Math.PI) yawDiff += Math.PI * 2;
       op.mesh.rotation.y += yawDiff * 0.2;
+
+      // Walking animation
+      const ud = op.mesh.userData;
+      if (isMoving && ud.leftThigh) {
+        op.walkPhase += 0.15;
+        const swing = Math.sin(op.walkPhase) * 0.2;
+        const armSwing = Math.sin(op.walkPhase) * 0.1;
+
+        // Legs swing forward/back
+        ud.leftThigh.position.z = swing;
+        ud.leftShin.position.z = swing;
+        ud.leftShoe.position.z = swing + 0.04;
+        ud.rightThigh.position.z = -swing;
+        ud.rightShin.position.z = -swing;
+        ud.rightShoe.position.z = -swing + 0.04;
+
+        // Left arm swings opposite to left leg
+        ud.leftArm.position.z = -armSwing;
+
+        // Body bob
+        op.mesh.position.y = 1.04 + Math.abs(Math.sin(op.walkPhase * 2)) * 0.025;
+      } else if (ud.leftThigh) {
+        // Ease legs back to neutral
+        ud.leftThigh.position.z *= 0.85;
+        ud.leftShin.position.z *= 0.85;
+        ud.leftShoe.position.z = ud.leftShoe.position.z * 0.85 + 0.04 * 0.15;
+        ud.rightThigh.position.z *= 0.85;
+        ud.rightShin.position.z *= 0.85;
+        ud.rightShoe.position.z = ud.rightShoe.position.z * 0.85 + 0.04 * 0.15;
+        ud.leftArm.position.z *= 0.85;
+        op.mesh.position.y = 1.04;
+      }
     }
 
     renderer.render(scene, camera);
