@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2683,26 +2684,34 @@
   }
 
   // Outer walls — segmented with door gaps
-  // Door positions: single grand entrance on front wall
+  // 3 doors: center of front, left, and right walls. Back wall (behind bar) stays solid.
   const doorDefs = [
-    { id: 'entrance', wall: 'front', pos: 0, axis: 'x', wz: 35, facing: 'z' },
+    { id: 'front', wall: 'front', pos: 0,  axis: 'x', wz: 35,  facing: 'z' },
+    { id: 'left',  wall: 'left',  pos: 0,  axis: 'z', wx: -35, facing: 'x' },
+    { id: 'right', wall: 'right', pos: 0,  axis: 'z', wx: 35,  facing: 'x' },
   ];
   const DOOR_WIDTH = 5;
   const DOOR_HEIGHT = 5;
   const doors = [];
-
-  // Build walls — 3 solid, 1 with door gap
-  // Left wall — solid
-  addStructure(-35, 0, 1, 70, 10, wallMat);
-  // Right wall — solid
-  addStructure(35, 0, 1, 70, 10, wallMat);
-  // Back wall — solid
-  addStructure(0, -35, 70, 1, 10, wallMat);
-  // Front wall (z = 35): door centered at x=0, gap x=[-2.5, 2.5]
   const aboveDoorH = 10 - DOOR_HEIGHT;
-  addStructure(-18.75, 35, 32.5, 1, 10, wallMat);  // left segment
-  addStructure(18.75, 35, 32.5, 1, 10, wallMat);   // right segment
+
+  // Back wall — solid (behind the bar)
+  addStructure(0, -35, 70, 1, 10, wallMat);
+
+  // Front wall (z = 35): door centered at x=0
+  addStructure(-18.75, 35, 32.5, 1, 10, wallMat);
+  addStructure(18.75, 35, 32.5, 1, 10, wallMat);
   addStructure(0, 35, DOOR_WIDTH, 1, aboveDoorH, wallMat).position.y = DOOR_HEIGHT + aboveDoorH / 2;
+
+  // Left wall (x = -35): door centered at z=0
+  addStructure(-35, -18.75, 1, 32.5, 10, wallMat);
+  addStructure(-35, 18.75, 1, 32.5, 10, wallMat);
+  addStructure(-35, 0, 1, DOOR_WIDTH, aboveDoorH, wallMat).position.y = DOOR_HEIGHT + aboveDoorH / 2;
+
+  // Right wall (x = 35): door centered at z=0
+  addStructure(35, -18.75, 1, 32.5, 10, wallMat);
+  addStructure(35, 18.75, 1, 32.5, 10, wallMat);
+  addStructure(35, 0, 1, DOOR_WIDTH, aboveDoorH, wallMat).position.y = DOOR_HEIGHT + aboveDoorH / 2;
 
   // Build door frames and swinging doors
   const doorFrameMat = new THREE.MeshStandardMaterial({ color: 0x3a2818, roughness: 0.6, metalness: 0.15 });
