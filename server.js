@@ -28,7 +28,14 @@ const httpServer = http.createServer((req, res) => {
 });
 
 // ---- WEBSOCKET SERVER ----
-const wss = new WebSocket.Server({ server: httpServer });
+const wss = new WebSocket.Server({
+  server: httpServer,
+  perMessageDeflate: {
+    zlibDeflateOptions: { chunkSize: 1024, memLevel: 7, level: 3 },
+    zlibInflateOptions: { chunkSize: 10 * 1024 },
+    threshold: 128 // only compress messages larger than 128 bytes
+  }
+});
 
 // ---- GAME STATE ----
 const rooms = new Map();
@@ -131,7 +138,7 @@ function startWave(room) {
   }
 }
 
-// ---- GAME TICK (server runs at 20hz for spawning & wave management) ----
+// ---- GAME TICK (server runs at 30hz for spawning & wave management) ----
 setInterval(() => {
   for (const [roomId, room] of rooms) {
     if (room.state !== 'playing') continue;
@@ -143,7 +150,7 @@ setInterval(() => {
     // Spawn enemies
     if (room.enemiesToSpawn > 0) {
       room.spawnTimer++;
-      if (room.spawnTimer >= 7) { // ~350ms at 20hz (similar to 35 frames at 60fps)
+      if (room.spawnTimer >= 10) { // ~333ms at 30hz
         spawnEnemy(room);
         room.enemiesToSpawn--;
         room.spawnTimer = 0;
@@ -157,7 +164,7 @@ setInterval(() => {
       broadcastAll(room, { type: 'shopPhase' });
     }
   }
-}, 50);
+}, 33);
 
 // ---- CONNECTION HANDLING ----
 wss.on('connection', (ws) => {
