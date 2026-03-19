@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,7 +98,7 @@
 
   .hud-label {
     font-family: 'Cinzel', serif;
-    font-size: 10px;
+    font-size: 13px;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold-dim);
@@ -113,7 +112,7 @@
   }
   .hud-score .score-val {
     font-family: 'Playfair Display', serif;
-    font-size: 40px;
+    font-size: 52px;
     font-weight: 900;
     font-style: italic;
     display: block;
@@ -131,7 +130,7 @@
   }
   .hud-wave .wave-val {
     font-family: 'Playfair Display', serif;
-    font-size: 40px;
+    font-size: 52px;
     font-weight: 900;
     font-style: italic;
     display: block;
@@ -141,12 +140,12 @@
 
   .hud-health-bar {
     position: absolute;
-    bottom: 32px; left: 28px;
-    width: 240px;
+    bottom: 40px; left: 28px;
+    width: 320px;
   }
-  .hud-health-bar .label { margin-bottom: 8px; }
+  .hud-health-bar .label { margin-bottom: 10px; }
   .health-track {
-    width: 100%; height: 6px;
+    width: 100%; height: 10px;
     background: rgba(201,168,76,0.1);
     border: 1px solid var(--gold-dim);
     position: relative;
@@ -161,8 +160,8 @@
   .health-track::before, .health-track::after {
     content: '';
     position: absolute;
-    top: -4px;
-    width: 1px; height: 14px;
+    top: -5px;
+    width: 2px; height: 20px;
     background: var(--gold-dim);
   }
   .health-track::before { left: -1px; }
@@ -170,14 +169,14 @@
 
   .hud-ammo {
     position: absolute;
-    bottom: 28px; right: 28px;
+    bottom: 40px; right: 28px;
     text-align: right;
     color: var(--gold);
     text-shadow: 0 0 15px rgba(201,168,76,0.3);
   }
   .hud-ammo .ammo-val {
     font-family: 'Playfair Display', serif;
-    font-size: 52px;
+    font-size: 64px;
     font-weight: 900;
     font-style: italic;
     display: block;
@@ -188,14 +187,14 @@
 
   .hud-enemies {
     position: absolute;
-    bottom: 32px; left: 50%;
+    bottom: 40px; left: 50%;
     transform: translateX(-50%);
     text-align: center;
     color: var(--burgundy-bright);
   }
   .hud-enemies .enemies-val {
     font-family: 'Playfair Display', serif;
-    font-size: 26px;
+    font-size: 34px;
     font-weight: 900;
     font-style: italic;
     display: block;
@@ -212,7 +211,7 @@
     opacity: 0;
     color: var(--gold-bright);
     font-family: 'Playfair Display', serif;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 900;
   }
   .hit-marker.show { animation: hitFlash 0.25s ease-out; }
@@ -273,7 +272,7 @@
   .combo-display.active { opacity: 1; }
   .combo-label {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 900;
     font-style: italic;
     color: var(--gold-bright);
@@ -283,16 +282,16 @@
   }
   .combo-mult {
     font-family: 'Cinzel', serif;
-    font-size: 11px;
+    font-size: 14px;
     letter-spacing: 5px;
     color: var(--gold);
     opacity: 0.7;
     display: block;
-    margin-top: 2px;
+    margin-top: 3px;
   }
   .combo-bar {
-    width: 80px;
-    height: 3px;
+    width: 100px;
+    height: 4px;
     background: rgba(201,168,76,0.15);
     margin-top: 6px;
     margin-left: auto;
@@ -350,7 +349,7 @@
   /* ---- DASH INDICATOR ---- */
   .dash-indicator {
     position: fixed;
-    bottom: 60px;
+    bottom: 140px;
     right: 28px;
     pointer-events: none;
     z-index: 80;
@@ -358,16 +357,16 @@
   }
   .dash-label {
     font-family: 'Cinzel', serif;
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 3px;
     color: var(--gold-dim);
     text-transform: uppercase;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
   }
   .dash-bar {
-    width: 60px;
-    height: 3px;
+    width: 80px;
+    height: 5px;
     background: rgba(201,168,76,0.1);
     border: 1px solid rgba(138,111,46,0.2);
     margin-left: auto;
@@ -392,8 +391,8 @@
     gap: 6px;
   }
   .acc-slot {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
     border: 1px solid rgba(138,111,46,0.25);
     background: rgba(13,10,7,0.4);
     display: flex;
@@ -406,7 +405,7 @@
     background: rgba(201,168,76,0.06);
   }
   .acc-slot .acc-icon {
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1;
     filter: grayscale(0.2);
   }
@@ -425,7 +424,7 @@
   }
   .acc-slot .acc-tooltip .att-name {
     font-family: 'Cinzel', serif;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 2px;
     color: var(--gold);
     text-transform: uppercase;
@@ -433,7 +432,7 @@
   }
   .acc-slot .acc-tooltip .att-desc {
     font-family: 'IM Fell English SC', serif;
-    font-size: 10px;
+    font-size: 12px;
     color: var(--sepia);
     opacity: 0.7;
     display: block;
@@ -559,12 +558,12 @@
     white-space: nowrap;
     transition: none;
   }
-  .dmg-number.normal { color: var(--cream); font-size: 16px; }
-  .dmg-number.headshot { color: #ffe066; font-size: 22px; }
-  .dmg-number.crit { color: #ff6644; font-size: 20px; }
-  .dmg-number.fire { color: #ff8833; font-size: 14px; }
-  .dmg-number.heal { color: #66cc66; font-size: 16px; }
-  .dmg-number.boss { color: #ff3344; font-size: 18px; }
+  .dmg-number.normal { color: var(--cream); font-size: 20px; }
+  .dmg-number.headshot { color: #ffe066; font-size: 28px; }
+  .dmg-number.crit { color: #ff6644; font-size: 24px; }
+  .dmg-number.fire { color: #ff8833; font-size: 17px; }
+  .dmg-number.heal { color: #66cc66; font-size: 20px; }
+  .dmg-number.boss { color: #ff3344; font-size: 22px; }
 
   /* ---- BOSS HEALTH BAR ---- */
   .boss-health {
@@ -572,7 +571,7 @@
     top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    width: 320px;
+    width: 400px;
     pointer-events: none;
     z-index: 88;
     text-align: center;
@@ -582,18 +581,18 @@
   .boss-health.active { opacity: 1; }
   .boss-health-name {
     font-family: 'Playfair Display', serif;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 900;
     font-style: italic;
     color: var(--burgundy-bright);
     text-shadow: 0 0 15px rgba(155,45,63,0.4);
     display: block;
-    margin-bottom: 6px;
-    letter-spacing: 3px;
+    margin-bottom: 8px;
+    letter-spacing: 4px;
   }
   .boss-health-track {
     width: 100%;
-    height: 8px;
+    height: 12px;
     background: rgba(107,29,42,0.15);
     border: 1px solid var(--burgundy);
     position: relative;
@@ -607,8 +606,8 @@
   .boss-health-track::before, .boss-health-track::after {
     content: '';
     position: absolute;
-    top: -5px;
-    width: 1px; height: 18px;
+    top: -6px;
+    width: 2px; height: 24px;
     background: var(--burgundy);
   }
   .boss-health-track::before { left: -1px; }
@@ -617,24 +616,24 @@
   /* ---- BULLET TIME METER ---- */
   .bt-meter {
     position: fixed;
-    bottom: 80px;
+    bottom: 105px;
     left: 28px;
-    width: 140px;
+    width: 180px;
     pointer-events: none;
     z-index: 80;
   }
   .bt-label {
     font-family: 'Cinzel', serif;
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 3px;
     color: var(--gold-dim);
     text-transform: uppercase;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
   }
   .bt-track {
     width: 100%;
-    height: 4px;
+    height: 6px;
     background: rgba(68,102,170,0.1);
     border: 1px solid rgba(68,102,170,0.3);
     position: relative;
@@ -651,7 +650,7 @@
   /* ---- GRENADE COUNTER ---- */
   .grenade-counter {
     position: fixed;
-    bottom: 102px;
+    bottom: 180px;
     right: 28px;
     pointer-events: none;
     z-index: 80;
@@ -659,26 +658,26 @@
   }
   .grenade-label {
     font-family: 'Cinzel', serif;
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 3px;
     color: var(--gold-dim);
     text-transform: uppercase;
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
   }
   .grenade-pips {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     justify-content: flex-end;
   }
   .grenade-pip {
-    width: 14px; height: 14px;
+    width: 20px; height: 20px;
     border: 1px solid var(--gold-dim);
     background: rgba(201,168,76,0.08);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 9px;
+    font-size: 12px;
     line-height: 1;
   }
   .grenade-pip.filled {
@@ -893,7 +892,7 @@
   }
   #focus-overlay .focus-text {
     font-family: 'Cinzel', serif;
-    font-size: 18px;
+    font-size: 22px;
     letter-spacing: 6px;
     color: var(--gold);
     text-transform: uppercase;
@@ -902,7 +901,7 @@
   }
   #focus-overlay .focus-sub {
     font-family: 'IM Fell English SC', serif;
-    font-size: 12px;
+    font-size: 15px;
     color: var(--sepia);
     opacity: 0.5;
     margin-top: 12px;
@@ -916,7 +915,7 @@
   /* Bar prompt — approach the bar */
   #bar-prompt {
     position: fixed;
-    bottom: 80px;
+    bottom: 120px;
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
@@ -926,13 +925,166 @@
   }
   #bar-prompt .prompt-text {
     font-family: 'Cinzel', serif;
-    font-size: 14px;
+    font-size: 18px;
     letter-spacing: 5px;
     color: var(--gold);
     text-transform: uppercase;
     text-shadow: 0 0 20px rgba(201,168,76,0.5);
     animation: focusPulse 1.5s ease-in-out infinite;
   }
+  #bar-prompt .timer-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--gold-bright);
+    text-shadow: 0 2px 15px rgba(232,201,96,0.4);
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* bar arrow is now a 3D object, no CSS needed */
+
+  /* ---- PRE-ROUND PROMPT ---- */
+  .pre-round-prompt {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    pointer-events: none;
+    z-index: 96;
+    text-align: center;
+    display: none;
+  }
+  .pre-round-prompt.active {
+    display: block;
+  }
+  .pre-round-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--gold);
+    text-shadow: 0 2px 20px rgba(201,168,76,0.4);
+    display: block;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .pre-round-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    letter-spacing: 5px;
+    color: var(--sepia);
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .pre-round-timer {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--gold-bright);
+    text-shadow: 0 2px 15px rgba(232,201,96,0.4);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .pre-round-skip {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--gold-dim);
+    display: block;
+    animation: focusPulse 1.5s ease-in-out infinite;
+  }
+
+  /* ---- ROUND SUMMARY ---- */
+  .round-summary {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 97;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .round-summary.active {
+    display: flex;
+  }
+  .summary-panel {
+    background: linear-gradient(180deg, rgba(26,20,16,0.96), rgba(13,10,7,0.98));
+    border: 1px solid var(--gold-dim);
+    padding: 28px 40px;
+    max-width: 420px;
+    width: 85%;
+    text-align: center;
+    position: relative;
+  }
+  .summary-panel::before, .summary-panel::after {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    border-color: var(--gold);
+  }
+  .summary-panel::before { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+  .summary-panel::after { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+  .summary-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--gold);
+    text-shadow: 0 2px 15px rgba(201,168,76,0.3);
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .summary-chapter {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: var(--sepia);
+    opacity: 0.5;
+    display: block;
+    margin-bottom: 16px;
+  }
+  .summary-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 24px;
+    margin-bottom: 16px;
+  }
+  .summary-stat {
+    text-align: center;
+    min-width: 70px;
+  }
+  .summary-stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--gold-bright);
+    display: block;
+  }
+  .summary-stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+  .summary-deco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .summary-deco .line { flex: 1; max-width: 50px; height: 1px; background: var(--gold-dim); opacity: 0.3; }
+  .summary-deco .diamond { width: 5px; height: 5px; background: var(--gold-dim); transform: rotate(45deg); opacity: 0.4; }
 
   /* Shop overlay */
   #shop-overlay {
@@ -1194,7 +1346,10 @@
 
 <div id="bar-prompt">
   <div class="prompt-text">Approach the Bar</div>
+  <span class="timer-text"></span>
 </div>
+<div id="pre-round-prompt" class="pre-round-prompt"></div>
+<div id="round-summary" class="round-summary"></div>
 
 <div id="shop-overlay">
   <div class="shop-panel">
@@ -1215,8 +1370,8 @@
   <div id="lobby-main" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
     <input type="text" id="player-name" placeholder="Your Name" maxlength="16"
       style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold);background:rgba(26,20,16,0.9);border:1px solid var(--gold-dim);padding:10px 20px;text-align:center;outline:none;width:220px;text-transform:uppercase;" />
-    <button class="start-btn" id="create-room-btn" style="padding:16px 50px;">Play Together</button>
-    <button class="start-btn" id="solo-btn" style="padding:12px 40px;background:transparent;color:var(--gold);border:1px solid var(--gold-dim);box-shadow:none;font-size:11px;">Play Solo</button>
+    <button class="start-btn" id="create-room-btn" style="padding:16px 50px;">Host Lobby</button>
+    <button class="start-btn" id="solo-btn" style="padding:16px 50px;">Play Solo</button>
     <!-- Hidden join code input for manual join (still works) -->
     <div style="margin-top:10px;display:flex;gap:8px;align-items:center;opacity:0.5;">
       <input type="text" id="join-code" placeholder="CODE" maxlength="4"
@@ -1285,6 +1440,9 @@
   let isShopPhase = false;
   let isShopOpen = false;
   let shopBarGlow = null;
+  let shopArrow3D = null;
+  let shopTimer = 0;
+  const SHOP_DURATION = 1800; // 30 seconds at 60fps
 
   // ---- JUMP SYSTEM ----
   let playerY = 2;          // base eye height
@@ -1319,6 +1477,23 @@
 
   // ---- WAVE ANNOUNCEMENT ----
   let waveAnnounceTimer = 0;
+  let preRoundTimer = 0;
+  let preRoundActive = false;
+  const PRE_ROUND_DURATION = 1800; // 30 seconds
+
+  // ---- ROUND STATS ----
+  let roundKills = 0;
+  let roundHeadshots = 0;
+  let roundShotsFired = 0;
+  let roundShotsHit = 0;
+  let roundDamageTaken = 0;
+  let roundBossKills = 0;
+  let roundGrenadeKills = 0;
+
+  function resetRoundStats() {
+    roundKills = 0; roundHeadshots = 0; roundShotsFired = 0;
+    roundShotsHit = 0; roundDamageTaken = 0; roundBossKills = 0; roundGrenadeKills = 0;
+  }
 
   // ---- CIGAR (SLOW-MO) ----
   let cigarCount = 0;
@@ -2518,6 +2693,30 @@
   function startShopPhase() {
     isShopPhase = true;
     isShopOpen = false;
+    shopTimer = SHOP_DURATION;
+
+    // Show round summary
+    const accuracy = roundShotsFired > 0 ? Math.round((roundShotsHit / roundShotsFired) * 100) : 0;
+    const summaryEl = document.getElementById('round-summary');
+    summaryEl.className = 'round-summary active';
+    summaryEl.innerHTML =
+      '<div class="summary-panel">' +
+        '<span class="summary-title">Chapter Complete</span>' +
+        '<span class="summary-chapter">Chapter ' + toRoman(wave) + ' cleared</span>' +
+        '<div class="summary-deco"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>' +
+        '<div class="summary-stats">' +
+          '<div class="summary-stat"><span class="summary-stat-val">' + roundKills + '</span><span class="summary-stat-label">Kills</span></div>' +
+          '<div class="summary-stat"><span class="summary-stat-val">' + roundHeadshots + '</span><span class="summary-stat-label">Headshots</span></div>' +
+          '<div class="summary-stat"><span class="summary-stat-val">' + accuracy + '%</span><span class="summary-stat-label">Accuracy</span></div>' +
+          '<div class="summary-stat"><span class="summary-stat-val">' + roundDamageTaken + '</span><span class="summary-stat-label">Damage Taken</span></div>' +
+          (roundBossKills > 0 ? '<div class="summary-stat"><span class="summary-stat-val" style="color:var(--burgundy-bright);">' + roundBossKills + '</span><span class="summary-stat-label">Bosses</span></div>' : '') +
+        '</div>' +
+        '<div class="summary-deco"><div class="line"></div><div class="diamond"></div><div class="line"></div></div>' +
+      '</div>';
+    // Auto-dismiss after 4 seconds
+    setTimeout(() => { summaryEl.className = 'round-summary'; }, 4000);
+    resetRoundStats();
+
     // Refill all owned weapons
     weaponOrder.forEach(key => {
       if (weapons[key].owned) weapons[key].ammo = weapons[key].maxAmmo;
@@ -2549,13 +2748,44 @@
 
     // Add glowing bar indicator
     if (!shopBarGlow) {
-      const glowGeo = new THREE.BoxGeometry(18.4, 0.1, 3.4);
+      const glowGeo = new THREE.BoxGeometry(12.4, 0.1, 2.9);
       const glowMat = new THREE.MeshBasicMaterial({ color: 0xc9a84c, transparent: true, opacity: 0.3 });
       shopBarGlow = new THREE.Mesh(glowGeo, glowMat);
-      shopBarGlow.position.set(0, 1.45, -25);
+      shopBarGlow.position.set(0, 1.45, -30);
       scene.add(shopBarGlow);
     }
     shopBarGlow.visible = true;
+
+    // Add 3D floating arrow above the bar
+    if (!shopArrow3D) {
+      const arrowGroup = new THREE.Group();
+      // Arrow body — downward pointing chevron
+      const arrowMat = new THREE.MeshStandardMaterial({ color: 0xc9a84c, emissive: 0xc9a84c, emissiveIntensity: 0.8, transparent: true, opacity: 0.9 });
+      // Main triangle pointing down
+      const arrowShape = new THREE.Shape();
+      arrowShape.moveTo(0, 0);
+      arrowShape.lineTo(1.2, 2);
+      arrowShape.lineTo(0.5, 2);
+      arrowShape.lineTo(0, 0.8);
+      arrowShape.lineTo(-0.5, 2);
+      arrowShape.lineTo(-1.2, 2);
+      arrowShape.lineTo(0, 0);
+      const arrowGeo = new THREE.ExtrudeGeometry(arrowShape, { depth: 0.15, bevelEnabled: false });
+      const arrowMesh = new THREE.Mesh(arrowGeo, arrowMat);
+      arrowMesh.rotation.x = Math.PI; // point downward
+      arrowMesh.position.z = -0.075;
+      arrowGroup.add(arrowMesh);
+
+      // Glow light
+      const arrowLight = new THREE.PointLight(0xc9a84c, 2, 12);
+      arrowLight.position.y = -0.5;
+      arrowGroup.add(arrowLight);
+
+      arrowGroup.position.set(0, 5.5, -29);
+      scene.add(arrowGroup);
+      shopArrow3D = arrowGroup;
+    }
+    shopArrow3D.visible = true;
 
     document.getElementById('bar-prompt').style.display = 'block';
   }
@@ -2563,7 +2793,9 @@
   function endShopPhase() {
     isShopPhase = false;
     isShopOpen = false;
+    shopTimer = 0;
     if (shopBarGlow) shopBarGlow.visible = false;
+    if (shopArrow3D) shopArrow3D.visible = false;
     document.getElementById('bar-prompt').style.display = 'none';
     const overlay = document.getElementById('shop-overlay');
     overlay.classList.remove('active');
@@ -2580,14 +2812,14 @@
   // Check if player is near the bar
   function isNearBar() {
     const dx = Math.abs(camera.position.x - 0);
-    const dz = Math.abs(camera.position.z - (-22)); // front of bar
-    return dx < 12 && dz < 4;
+    const dz = Math.abs(camera.position.z - (-28)); // front of bar
+    return dx < 8 && dz < 4;
   }
 
   // ---- THREE.JS SETUP ----
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x110e09);
-  scene.fog = new THREE.FogExp2(0x110e09, 0.018);
+  scene.fog = new THREE.FogExp2(0x110e09, 0.013);
 
   const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 150);
   camera.position.set(0, 2, 0);
@@ -2598,11 +2830,11 @@
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.BasicShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.9;
+  renderer.toneMappingExposure = 1.1;
   document.body.prepend(renderer.domElement);
 
   // ---- LIGHTING — warm, moody, noir ---- 
-  const ambientLight = new THREE.AmbientLight(0x332211, 0.5);
+  const ambientLight = new THREE.AmbientLight(0x332211, 0.7);
   scene.add(ambientLight);
 
   const dirLight = new THREE.DirectionalLight(0xffe8cc, 0.4);
@@ -2635,6 +2867,159 @@
   moonLight.position.set(25, 10, -25);
   scene.add(moonLight);
 
+  // Extra warm lights — all four corners
+  const cornerLight1 = new THREE.PointLight(0xff6622, 1.2, 25);
+  cornerLight1.position.set(-28, 4, -28);
+  scene.add(cornerLight1);
+
+  const cornerLight2 = new THREE.PointLight(0xff6622, 1.2, 25);
+  cornerLight2.position.set(28, 4, 28);
+  scene.add(cornerLight2);
+
+  const cornerLight3 = new THREE.PointLight(0xff7733, 1.2, 25);
+  cornerLight3.position.set(-28, 4, 28);
+  scene.add(cornerLight3);
+
+  const cornerLight4 = new THREE.PointLight(0xff7733, 1.2, 25);
+  cornerLight4.position.set(28, 4, -28);
+  scene.add(cornerLight4);
+
+  // Wall wash lights — evenly spaced along each wall to eliminate dark patches
+  // Left wall
+  for (const wz of [-20, 0, 20]) {
+    const wl = new THREE.PointLight(0xffaa55, 0.7, 16);
+    wl.position.set(-30, 5, wz); scene.add(wl);
+  }
+  // Right wall
+  for (const wz of [-20, 0, 20]) {
+    const wl = new THREE.PointLight(0xffaa55, 0.7, 16);
+    wl.position.set(30, 5, wz); scene.add(wl);
+  }
+  // Front wall
+  for (const wx of [-18, 0, 18]) {
+    const wl = new THREE.PointLight(0xffaa44, 0.6, 16);
+    wl.position.set(wx, 5, 30); scene.add(wl);
+  }
+  // Back wall (behind bar — slightly warmer)
+  for (const wx of [-14, 0, 14]) {
+    const wl = new THREE.PointLight(0xffbb66, 0.8, 16);
+    wl.position.set(wx, 5, -30); scene.add(wl);
+  }
+
+  // Soft fill light from bar area
+  const barFill = new THREE.PointLight(0xffcc88, 1.2, 18);
+  barFill.position.set(0, 3, -28);
+  scene.add(barFill);
+
+  // Stage warm wash
+  const stageWash = new THREE.PointLight(0xffaa44, 1.0, 15);
+  stageWash.position.set(0, 4, 26);
+  scene.add(stageWash);
+
+  // ---- AMBIENT JAZZ MUSIC (procedural) ----
+  let jazzPlaying = false;
+  let jazzInterval = null;
+
+  function startJazz() {
+    if (jazzPlaying || !audioCtx) return;
+    jazzPlaying = true;
+
+    // Low bass drone
+    const bassOsc = audioCtx.createOscillator();
+    const bassGain = audioCtx.createGain();
+    const bassFilter = audioCtx.createBiquadFilter();
+    bassOsc.type = 'sine';
+    bassOsc.frequency.value = 55; // Low A
+    bassFilter.type = 'lowpass';
+    bassFilter.frequency.value = 120;
+    bassGain.gain.value = 0.06;
+    bassOsc.connect(bassFilter);
+    bassFilter.connect(bassGain);
+    bassGain.connect(audioCtx.destination);
+    bassOsc.start();
+
+    // Piano-like notes playing a slow jazzy pattern
+    const jazzNotes = [
+      220, 262, 330, 294, 349, 262, 392, 330,
+      247, 294, 370, 330, 262, 349, 294, 220,
+      196, 262, 330, 370, 294, 349, 392, 440,
+    ];
+    let noteIdx = 0;
+
+    jazzInterval = setInterval(() => {
+      if (!audioCtx || !jazzPlaying) return;
+      const t = audioCtx.currentTime;
+      const freq = jazzNotes[noteIdx % jazzNotes.length];
+      noteIdx++;
+
+      // Piano-ish tone (sine + harmonic)
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      const lp = audioCtx.createBiquadFilter();
+      osc1.type = 'sine';
+      osc1.frequency.value = freq;
+      osc2.type = 'sine';
+      osc2.frequency.value = freq * 2.01; // slight detune for warmth
+      lp.type = 'lowpass';
+      lp.frequency.value = 1200;
+      g.gain.setValueAtTime(0.04, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 1.8);
+      osc1.connect(lp);
+      osc2.connect(lp);
+      lp.connect(g);
+      g.connect(audioCtx.destination);
+      osc1.start(t);
+      osc2.start(t);
+      osc1.stop(t + 2);
+      osc2.stop(t + 2);
+
+      // Occasional chord (every 4th note)
+      if (noteIdx % 4 === 0) {
+        const chordFreqs = [freq, freq * 1.25, freq * 1.5];
+        chordFreqs.forEach(cf => {
+          const co = audioCtx.createOscillator();
+          const cg = audioCtx.createGain();
+          co.type = 'sine';
+          co.frequency.value = cf;
+          cg.gain.setValueAtTime(0.02, t);
+          cg.gain.exponentialRampToValueAtTime(0.001, t + 2.5);
+          co.connect(cg);
+          cg.connect(audioCtx.destination);
+          co.start(t);
+          co.stop(t + 2.5);
+        });
+      }
+    }, 700 + Math.random() * 200); // slightly irregular timing
+  }
+
+  // ---- 3D SMOKE PARTICLES (floating wisps in scene) ----
+  const smokeParticles3D = [];
+  function initSmokeParticles() {
+    const smokeMat = new THREE.MeshBasicMaterial({ color: 0xaa9977, transparent: true, opacity: 0.04 });
+    for (let i = 0; i < 15; i++) {
+      const size = 2 + Math.random() * 3;
+      const geo = new THREE.SphereGeometry(size, 4, 4);
+      const mesh = new THREE.Mesh(geo, smokeMat.clone());
+      mesh.position.set(
+        (Math.random() - 0.5) * 60,
+        1 + Math.random() * 6,
+        (Math.random() - 0.5) * 60
+      );
+      scene.add(mesh);
+      smokeParticles3D.push({
+        mesh,
+        baseX: mesh.position.x,
+        baseY: mesh.position.y,
+        baseZ: mesh.position.z,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.0005 + Math.random() * 0.001,
+        drift: 0.3 + Math.random() * 0.5
+      });
+    }
+  }
+  initSmokeParticles();
+
   // ---- MATERIALS — warm wood, brass, dark leather ----
   const floorMat = new THREE.MeshStandardMaterial({ color: 0x2a1f14, roughness: 0.85, metalness: 0.05 });
   const wallMat = new THREE.MeshStandardMaterial({ color: 0x1a1510, roughness: 0.7, metalness: 0.1 });
@@ -2666,6 +3051,8 @@
   }
 
   const structures = [];
+  const tablePlatforms = []; // for jumping on
+  const pillarPositions = []; // for bullet blocking
 
   function addBox(x, z, w, d, h, mat) {
     const geo = new THREE.BoxGeometry(w, h, d);
@@ -2860,14 +3247,95 @@
 
   // ---- SPEAKEASY FURNITURE ----
 
-  // The Bar (long counter)
-  addStructure(0, -25, 18, 3, 1.3, barMat);
+  // The Bar (smaller, closer to back wall)
+  addStructure(0, -30, 12, 2.5, 1.3, barMat);
   // Bar top — brass rail
-  const barTop = new THREE.Mesh(new THREE.BoxGeometry(18.4, 0.1, 3.4), brassMat);
-  barTop.position.set(0, 1.35, -25); scene.add(barTop);
+  const barTop = new THREE.Mesh(new THREE.BoxGeometry(12.4, 0.1, 2.9), brassMat);
+  barTop.position.set(0, 1.35, -30); scene.add(barTop);
 
-  // Back bar shelves
-  addStructure(0, -33, 20, 2, 4, new THREE.MeshStandardMaterial({ color: 0x2a1f14, roughness: 0.7 }));
+  // Back bar shelves (between bartender and back wall)
+  const shelfMat = new THREE.MeshStandardMaterial({ color: 0x2a1f14, roughness: 0.7 });
+  // Shelf backing board (flat against wall)
+  const shelfBack = new THREE.Mesh(new THREE.BoxGeometry(13, 5, 0.2), shelfMat);
+  shelfBack.position.set(0, 3, -34.3); scene.add(shelfBack);
+  // Individual shelf planks sticking out from wall
+  for (const sy of [1.8, 2.8, 3.8]) {
+    const shelf = new THREE.Mesh(new THREE.BoxGeometry(13, 0.1, 1.0), shelfMat);
+    shelf.position.set(0, sy, -33.8); scene.add(shelf);
+    // Shelf bracket supports
+    for (const bx of [-5, -2, 1, 4]) {
+      const bracket = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.3, 0.5), brassMat);
+      bracket.position.set(bx, sy - 0.15, -33.9); scene.add(bracket);
+    }
+  }
+
+  // Decorative bottles on shelves (non-hazard, just visual)
+  const bottleColors = [0x8B4513, 0x2d5a27, 0x6b1d2a, 0x1a3a5a, 0xc9a84c, 0x4a2a1a, 0x2a4a2a, 0x5a2a3a];
+  for (const sy of [1.85, 2.85, 3.85]) {
+    const bottleCount = 10 + Math.floor(Math.random() * 4);
+    for (let i = 0; i < bottleCount; i++) {
+      const bx = -5.5 + (i / bottleCount) * 11 + (Math.random() - 0.5) * 0.3;
+      const bColor = bottleColors[Math.floor(Math.random() * bottleColors.length)];
+      const bHeight = 0.3 + Math.random() * 0.2;
+      const bWidth = 0.08 + Math.random() * 0.05;
+      const bottle = new THREE.Mesh(
+        new THREE.CylinderGeometry(bWidth * 0.4, bWidth, bHeight, 5),
+        new THREE.MeshStandardMaterial({ color: bColor, roughness: 0.3, metalness: 0.1, transparent: true, opacity: 0.8 })
+      );
+      bottle.position.set(bx, sy + bHeight / 2, -33.6 - Math.random() * 0.3);
+      scene.add(bottle);
+      // Neck
+      const neck = new THREE.Mesh(
+        new THREE.CylinderGeometry(bWidth * 0.2, bWidth * 0.35, bHeight * 0.4, 4),
+        new THREE.MeshStandardMaterial({ color: bColor, roughness: 0.3, transparent: true, opacity: 0.8 })
+      );
+      neck.position.set(bx, sy + bHeight + bHeight * 0.15, bottle.position.z);
+      scene.add(neck);
+    }
+  }
+
+  // Bar mirror (on back wall, above top shelf)
+  const mirror = new THREE.Mesh(new THREE.BoxGeometry(8, 1.5, 0.1),
+    new THREE.MeshStandardMaterial({ color: 0x334455, roughness: 0.05, metalness: 0.9 }));
+  mirror.position.set(0, 5.2, -34.3); scene.add(mirror);
+  // Mirror frame (gold)
+  const mirrorFrame = new THREE.Mesh(new THREE.BoxGeometry(8.3, 1.8, 0.05), brassMat);
+  mirrorFrame.position.set(0, 5.2, -34.25); scene.add(mirrorFrame);
+
+  // Warm light behind bar to illuminate bottles
+  const barBackLight = new THREE.PointLight(0xffaa55, 1.5, 15);
+  barBackLight.position.set(0, 4, -33);
+  scene.add(barBackLight);
+
+  // Bar stools
+  function addBarStool(x, z) {
+    const stoolGroup = new THREE.Group();
+    // Seat (round, padded)
+    const seat = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.1, 8),
+      new THREE.MeshStandardMaterial({ color: 0x6b1d2a, roughness: 0.9 }));
+    seat.position.y = 0.9; stoolGroup.add(seat);
+    // Seat padding rim
+    const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.04, 8), brassMat);
+    rim.position.y = 0.86; stoolGroup.add(rim);
+    // Central post
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.06, 0.85, 5), brassMat);
+    post.position.y = 0.45; stoolGroup.add(post);
+    // Footrest ring
+    const footrest = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.03, 8),
+      new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.8, roughness: 0.2 }));
+    footrest.position.y = 0.3; stoolGroup.add(footrest);
+    // Base
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.3, 0.06, 8), brassMat);
+    base.position.y = 0.03; stoolGroup.add(base);
+
+    stoolGroup.position.set(x, 0, z);
+    stoolGroup.castShadow = true;
+    scene.add(stoolGroup);
+  }
+  // Stools along front of bar
+  for (let i = -3; i <= 3; i++) {
+    addBarStool(i * 1.6, -28.2);
+  }
 
   // Brass pillars
   function addPillar(x, z) {
@@ -2882,6 +3350,7 @@
     const base = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.8, 0.5, 6), brassMat);
     base.position.set(x, 0.25, z); scene.add(base);
     structures.push({ mesh, minX: x - 0.7, maxX: x + 0.7, minZ: z - 0.7, maxZ: z + 0.7 });
+    pillarPositions.push({ x, z, radius: 0.65 }); // slightly larger than visual for gameplay feel
   }
   addPillar(-15, -15);
   addPillar(15, -15);
@@ -2897,7 +3366,8 @@
     tableTop.position.set(x, 1.0, z); tableTop.castShadow = true; scene.add(tableTop);
     const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.15, 0.95, 4), brassMat);
     leg.position.set(x, 0.48, z); scene.add(leg);
-    structures.push({ mesh: tableTop, minX: x - 1.2, maxX: x + 1.2, minZ: z - 1.2, maxZ: z + 1.2 });
+    // NOTE: Tables are NOT added to structures[] so the player can walk into their XZ space and jump on top
+    tablePlatforms.push({ x, z, radius: 1.3, topY: 1.05 }); // slightly generous radius for landing
   }
   addTable(-8, 5);
   addTable(8, 5);
@@ -2947,6 +3417,295 @@
   addHangingLamp(0, -15, 0xffcc66, true);
   addHangingLamp(-20, 15, 0xff9944, false);
   addHangingLamp(20, 15, 0xff9944, false);
+
+  // ---- ROOM DECORATIONS ----
+
+  // Paintings on walls (gold frames with dark canvases)
+  function addPainting(x, y, z, w, h, rotY) {
+    const group = new THREE.Group();
+    // Frame
+    const frame = new THREE.Mesh(new THREE.BoxGeometry(w + 0.2, h + 0.2, 0.08), brassMat);
+    group.add(frame);
+    // Canvas (dark, moody)
+    const canvasColors = [0x1a1510, 0x2a1a10, 0x1a2020, 0x201a18];
+    const canvas = new THREE.Mesh(new THREE.BoxGeometry(w, h, 0.05),
+      new THREE.MeshStandardMaterial({ color: canvasColors[Math.floor(Math.random() * canvasColors.length)], roughness: 0.9 }));
+    canvas.position.z = 0.02;
+    group.add(canvas);
+    // Inner gold accent line
+    const inner = new THREE.Mesh(new THREE.BoxGeometry(w - 0.1, h - 0.1, 0.06),
+      new THREE.MeshStandardMaterial({ color: 0x8a6f2e, roughness: 0.4, metalness: 0.5 }));
+    inner.position.z = 0.015;
+    group.add(inner);
+    group.position.set(x, y, z);
+    group.rotation.y = rotY || 0;
+    scene.add(group);
+  }
+  // Left wall paintings
+  addPainting(-34.3, 4.5, -18, 3, 2, Math.PI / 2);
+  addPainting(-34.3, 4.5, 8, 2.5, 3, Math.PI / 2);
+  addPainting(-34.3, 4, 22, 2, 1.5, Math.PI / 2);
+  // Right wall paintings
+  addPainting(34.3, 4.5, -10, 3, 2.5, -Math.PI / 2);
+  addPainting(34.3, 4, 15, 2, 2, -Math.PI / 2);
+  addPainting(34.3, 4.5, 28, 2.5, 1.5, -Math.PI / 2);
+
+  // Ashtrays on tables
+  function addAshtray(x, z) {
+    const tray = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.25, 0.06, 6),
+      new THREE.MeshStandardMaterial({ color: 0x555555, metalness: 0.6, roughness: 0.3 }));
+    tray.position.set(x + 0.4, 1.08, z + 0.3);
+    scene.add(tray);
+    // Cigarette butt
+    const cig = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.12, 3),
+      new THREE.MeshStandardMaterial({ color: 0xf0e6d0, roughness: 0.9 }));
+    cig.rotation.z = Math.PI / 2 + 0.3;
+    cig.position.set(x + 0.4, 1.12, z + 0.3);
+    scene.add(cig);
+  }
+  addAshtray(-8, 5);
+  addAshtray(8, 18);
+  addAshtray(-22, -10);
+
+  // Drinking glasses on some tables
+  function addGlass(x, z) {
+    const glass = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.05, 0.15, 5),
+      new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.1, transparent: true, opacity: 0.4 }));
+    glass.position.set(x - 0.3, 1.1, z - 0.2);
+    scene.add(glass);
+    // Whiskey inside
+    const liquid = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.04, 0.06, 5),
+      new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.2, transparent: true, opacity: 0.6 }));
+    liquid.position.set(x - 0.3, 1.06, z - 0.2);
+    scene.add(liquid);
+  }
+  addGlass(8, 5);
+  addGlass(-8, 18);
+  addGlass(22, -10);
+
+  // Large center rug
+  const rug = new THREE.Mesh(new THREE.BoxGeometry(14, 0.02, 10),
+    new THREE.MeshStandardMaterial({ color: 0x6b1d2a, roughness: 0.95 }));
+  rug.position.set(0, 0.01, 5);
+  scene.add(rug);
+  // Rug border
+  const rugBorder = new THREE.Mesh(new THREE.BoxGeometry(14.4, 0.02, 10.4),
+    new THREE.MeshStandardMaterial({ color: 0x8a6f2e, roughness: 0.8 }));
+  rugBorder.position.set(0, 0.005, 5);
+  scene.add(rugBorder);
+  // Rug inner pattern line
+  const rugInner = new THREE.Mesh(new THREE.BoxGeometry(12, 0.02, 8),
+    new THREE.MeshStandardMaterial({ color: 0x501520, roughness: 0.95 }));
+  rugInner.position.set(0, 0.015, 5);
+  scene.add(rugInner);
+
+  // Gramophone on stage
+  const gramophone = new THREE.Group();
+  // Base box
+  const gramBase = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.4, 0.5),
+    new THREE.MeshStandardMaterial({ color: 0x3a2818, roughness: 0.6 }));
+  gramophone.add(gramBase);
+  // Brass trim on base
+  const gramTrim = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.04, 0.52), brassMat);
+  gramTrim.position.y = 0.2;
+  gramophone.add(gramTrim);
+  // Turntable
+  const turntable = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.03, 8),
+    new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.3 }));
+  turntable.position.y = 0.22;
+  gramophone.add(turntable);
+  // Tone arm
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.02, 0.25), brassMat);
+  arm.position.set(0.12, 0.25, 0);
+  arm.rotation.y = -0.3;
+  gramophone.add(arm);
+  // Horn
+  const horn = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.5, 8, 1, true), brassMat);
+  horn.position.set(-0.15, 0.55, 0);
+  horn.rotation.z = 0.4;
+  gramophone.add(horn);
+  gramophone.position.set(-4, 1.2, 28);
+  scene.add(gramophone);
+
+  // Wall clock (back wall, above bar mirror)
+  const clockFace = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 0.08, 12),
+    new THREE.MeshStandardMaterial({ color: 0xf0e6d0, roughness: 0.8 }));
+  clockFace.rotation.x = Math.PI / 2;
+  clockFace.position.set(0, 7.5, -34.4);
+  scene.add(clockFace);
+  const clockRim = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.1, 12), brassMat);
+  clockRim.rotation.x = Math.PI / 2;
+  clockRim.position.set(0, 7.5, -34.38);
+  scene.add(clockRim);
+  // Clock hands
+  const hourHand = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.3, 0.02), new THREE.MeshStandardMaterial({ color: 0x111111 }));
+  hourHand.position.set(0, 7.6, -34.35);
+  hourHand.rotation.z = 0.8;
+  scene.add(hourHand);
+  const minuteHand = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.4, 0.02), new THREE.MeshStandardMaterial({ color: 0x111111 }));
+  minuteHand.position.set(0, 7.55, -34.34);
+  minuteHand.rotation.z = -0.5;
+  scene.add(minuteHand);
+
+  // Wall sconces (decorative brass light fixtures on walls)
+  function addSconce(x, y, z, rotY) {
+    const sconceGroup = new THREE.Group();
+    // Bracket
+    const bracket = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.15, 0.12), brassMat);
+    sconceGroup.add(bracket);
+    // Arm
+    const sArm = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.04, 0.2), brassMat);
+    sArm.position.set(0, 0.05, 0.15);
+    sconceGroup.add(sArm);
+    // Cup
+    const cup = new THREE.Mesh(new THREE.ConeGeometry(0.12, 0.15, 6, 1, true), brassMat);
+    cup.position.set(0, 0.06, 0.28);
+    cup.rotation.x = Math.PI;
+    sconceGroup.add(cup);
+    // Warm glow
+    const sLight = new THREE.PointLight(0xffaa44, 1.0, 14);
+    sLight.position.set(0, 0.15, 0.28);
+    sconceGroup.add(sLight);
+    sconceGroup.position.set(x, y, z);
+    sconceGroup.rotation.y = rotY;
+    scene.add(sconceGroup);
+  }
+  // Sconces on left wall
+  addSconce(-34.3, 4, -20, Math.PI / 2);
+  addSconce(-34.3, 4, 0, Math.PI / 2);
+  addSconce(-34.3, 4, 20, Math.PI / 2);
+  // Sconces on right wall
+  addSconce(34.3, 4, -20, -Math.PI / 2);
+  addSconce(34.3, 4, 0, -Math.PI / 2);
+  addSconce(34.3, 4, 20, -Math.PI / 2);
+  // Sconces on back wall
+  addSconce(-12, 4, -34.3, 0);
+  addSconce(12, 4, -34.3, 0);
+
+  // ---- BARTENDER (NPC — cannot be killed) ----
+  const bartenderGroup = new THREE.Group();
+  (function buildBartender() {
+    const vestMat = new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.6, metalness: 0.1 });
+    const shirtMat = new THREE.MeshStandardMaterial({ color: 0xd4c8b0, roughness: 0.8 });
+    const skinMat = new THREE.MeshStandardMaterial({ color: 0xd4a878, roughness: 0.8 });
+    const pantsMat = new THREE.MeshStandardMaterial({ color: 0x1a1208, roughness: 0.7 });
+    const apronMat = new THREE.MeshStandardMaterial({ color: 0xf0e6d0, roughness: 0.9 });
+
+    // Legs
+    for (const sx of [-0.18, 0.18]) {
+      const leg = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.8, 0.28), pantsMat);
+      leg.position.set(sx, -0.4, 0); bartenderGroup.add(leg);
+      const shoe = new THREE.Mesh(new THREE.BoxGeometry(0.27, 0.12, 0.38), new THREE.MeshStandardMaterial({ color: 0x0d0a07, roughness: 0.7 }));
+      shoe.position.set(sx, -0.85, 0.03); bartenderGroup.add(shoe);
+    }
+
+    // Torso — white shirt
+    const torso = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.05, 0.5), shirtMat);
+    torso.position.y = 0.52; bartenderGroup.add(torso);
+
+    // Vest over shirt
+    const vest = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.9, 0.08), vestMat);
+    vest.position.set(0, 0.55, 0.26); bartenderGroup.add(vest);
+
+    // Apron (front)
+    const apron = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.7, 0.06), apronMat);
+    apron.position.set(0, 0.1, 0.28); bartenderGroup.add(apron);
+    // Apron string
+    const apronString = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.03, 0.06), apronMat);
+    apronString.position.set(0, 0.45, 0.28); bartenderGroup.add(apronString);
+
+    // Shoulders
+    const shoulders = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.15, 0.52), vestMat);
+    shoulders.position.y = 1.05; bartenderGroup.add(shoulders);
+
+    // Left arm (resting on bar)
+    const leftArm = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.7, 0.22), shirtMat);
+    leftArm.position.set(-0.58, 0.6, 0.1); bartenderGroup.add(leftArm);
+    const leftHand = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.18, 0.16), skinMat);
+    leftHand.position.set(-0.58, 0.2, 0.15); bartenderGroup.add(leftHand);
+
+    // Right arm — this one animates (polishing glass)
+    const rightUpperArm = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.5, 0.22), shirtMat);
+    rightUpperArm.position.set(0.58, 0.75, 0.05);
+    bartenderGroup.add(rightUpperArm);
+
+    // Right forearm + hand pivot (this rotates for polishing)
+    const rightArmPivot = new THREE.Group();
+    rightArmPivot.position.set(0.58, 0.48, 0.1);
+    const rightForearm = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.4, 0.2), shirtMat);
+    rightForearm.position.set(0, 0.05, 0.15);
+    rightArmPivot.add(rightForearm);
+    const rightHand = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.17, 0.15), skinMat);
+    rightHand.position.set(0, -0.12, 0.22);
+    rightArmPivot.add(rightHand);
+
+    // Cloth/rag in hand
+    const rag = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.12, 0.2),
+      new THREE.MeshStandardMaterial({ color: 0xd4c8b0, roughness: 1 }));
+    rag.position.set(0, -0.2, 0.25);
+    rightArmPivot.add(rag);
+    bartenderGroup.add(rightArmPivot);
+
+    // Glass being polished (held in left hand area / on bar)
+    const glass = new THREE.Group();
+    // Cup
+    const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.06, 0.2, 6),
+      new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.1, metalness: 0.1, transparent: true, opacity: 0.5 }));
+    glass.add(cup);
+    // Base
+    const glassBase = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.07, 0.03, 6),
+      new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.1, transparent: true, opacity: 0.5 }));
+    glassBase.position.y = -0.12;
+    glass.add(glassBase);
+    glass.position.set(-0.3, 0.22, 0.3);
+    bartenderGroup.add(glass);
+
+    // Head
+    const head = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.5, 0.45), skinMat);
+    head.position.y = 1.45; bartenderGroup.add(head);
+
+    // Handlebar moustache
+    const stache = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.06, 0.08),
+      new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.8 }));
+    stache.position.set(0, 1.3, 0.24); bartenderGroup.add(stache);
+    // Moustache curls
+    for (const sx of [-0.18, 0.18]) {
+      const curl = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.1, 0.06),
+        new THREE.MeshStandardMaterial({ color: 0x3a2a1a, roughness: 0.8 }));
+      curl.position.set(sx, 1.27, 0.24); bartenderGroup.add(curl);
+    }
+
+    // Slicked back hair
+    const hair = new THREE.Mesh(new THREE.BoxGeometry(0.47, 0.2, 0.47),
+      new THREE.MeshStandardMaterial({ color: 0x1a1208, roughness: 0.7 }));
+    hair.position.set(0, 1.6, -0.02); bartenderGroup.add(hair);
+    // Hair sides
+    for (const sx of [-0.24, 0.24]) {
+      const side = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.35, 0.4),
+        new THREE.MeshStandardMaterial({ color: 0x1a1208, roughness: 0.7 }));
+      side.position.set(sx, 1.45, -0.04); bartenderGroup.add(side);
+    }
+
+    // Bowtie
+    const bowtie = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.08, 0.08),
+      new THREE.MeshStandardMaterial({ color: 0x6b1d2a, roughness: 0.5 }));
+    bowtie.position.set(0, 1.08, 0.27); bartenderGroup.add(bowtie);
+    // Bowtie center knot
+    const bowKnot = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.06, 0.09),
+      new THREE.MeshStandardMaterial({ color: 0x4a1018, roughness: 0.5 }));
+    bowKnot.position.set(0, 1.08, 0.28); bartenderGroup.add(bowKnot);
+
+    // Store animated parts
+    bartenderGroup.userData.rightArmPivot = rightArmPivot;
+    bartenderGroup.userData.glass = glass;
+    bartenderGroup.userData.rag = rag;
+  })();
+
+  bartenderGroup.scale.set(0.8, 0.8, 0.8);
+  bartenderGroup.position.set(0, 1.1, -32.5);
+  bartenderGroup.rotation.y = 0; // facing toward player (positive z)
+  bartenderGroup.castShadow = true;
+  scene.add(bartenderGroup);
 
   // ---- ENVIRONMENTAL HAZARDS ----
   const hazards = [];
@@ -3033,7 +3792,7 @@
   });
 
   // -- Whiskey Bottles (behind bar) --
-  const bottlePositions = [[-6, -33], [0, -33], [6, -33]];
+  const bottlePositions = [[-4, -34], [0, -34], [4, -34]];
 
   function createBottleCluster(x, z) {
     const group = new THREE.Group();
@@ -3144,7 +3903,7 @@
     sfxHit();
 
     // Create fire zone on the bar top
-    createFireZone(hazard.x, -25, 3, 400);
+    createFireZone(hazard.x, -30, 3, 400);
   }
 
   function createFireZone(x, z, radius, duration) {
@@ -3323,6 +4082,25 @@
         else if (m === oR) x = s.maxX + r;
         else if (m === oF) z = s.minZ - r;
         else z = s.maxZ + r;
+      }
+    }
+    // Table collision — only block if player is below table surface (not standing on it)
+    for (const tbl of tablePlatforms) {
+      const tableEyeHeight = tbl.topY + GROUND_Y;
+      if (playerY < tableEyeHeight - 0.2) {
+        // Player is below table — treat table leg as solid
+        const dx = x - tbl.x;
+        const dz = z - tbl.z;
+        const dist = Math.sqrt(dx * dx + dz * dz);
+        const tableR = 1.2; // table radius for collision
+        if (dist < tableR + r) {
+          // Push player out
+          const pushDist = (tableR + r) - dist;
+          if (dist > 0.01) {
+            x += (dx / dist) * pushDist;
+            z += (dz / dist) * pushDist;
+          }
+        }
       }
     }
     return { x, z };
@@ -3752,6 +4530,7 @@
     if (now - lastShot < shootCooldown) return;
     lastShot = now;
     ammo--;
+    roundShotsFired++;
     sfxShoot();
     updateHUD();
 
@@ -3822,6 +4601,7 @@
         if (hitPoint.y > headY - 0.3 && hitPoint.y < headY + 0.4) {
           isHeadshot = true;
         }
+        if (p === 0) { roundShotsHit++; if (isHeadshot) roundHeadshots++; }
 
         const headshotMult = 3 + (3 * getAccessoryEffect('headshotDmg'));
         const lightningMult = activeStreak === 'lightning' ? 2 : 1;
@@ -3862,6 +4642,8 @@
 
         if (enemy.hp <= 0 && enemy.alive && !isMultiplayer) {
           enemy.alive = false;
+          roundKills++;
+          if (enemy.isBoss) roundBossKills++;
           sfxKill();
           spawnParticles(enemy.mesh.position.clone().add(new THREE.Vector3(0, 1.0, 0)), 0x6b1d2a, enemy.isBoss ? 15 : 8);
           spawnFedora(enemy.mesh.position.clone());
@@ -4216,11 +4998,22 @@
       isGrounded = false;
       sfxJump();
     }
-    if (e.code === 'KeyF' && isPlaying && !isPaused && !isShopOpen && !isShopPhase) {
+    if (e.code === 'KeyF' && isPlaying && !isPaused && !isShopOpen && !isShopPhase && !preRoundActive) {
       throwGrenade();
     }
-    if (e.code === 'KeyX' && isPlaying && !isPaused && !isShopOpen && !isShopPhase) {
+    if (e.code === 'KeyX' && isPlaying && !isPaused && !isShopOpen && !isShopPhase && !preRoundActive) {
       useCigar();
+    }
+    // Skip pre-round timer
+    if ((e.code === 'Enter' || e.code === 'NumpadEnter') && preRoundActive && isPlaying) {
+      preRoundActive = false;
+      preRoundTimer = 0;
+      document.getElementById('pre-round-prompt').className = 'pre-round-prompt';
+      if (isMultiplayer && ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'skipPreRound' }));
+      } else {
+        startWave();
+      }
     }
     if (!isPaused && !isShopPhase && !isShopOpen) {
       if (e.code === 'Digit1' && weapons.revolver.owned) switchWeapon('revolver');
@@ -4697,6 +5490,7 @@
     isPlaying = true;
     isPaused = false;
     initAudio();
+    startJazz();
     renderer.domElement.requestPointerLock();
 
     // Don't call startWave — server controls waves
@@ -4771,8 +5565,11 @@
     isPlaying = true;
     isPaused = false;
     initAudio();
+    startJazz();
     renderer.domElement.requestPointerLock();
-    startWave();
+    // Start pre-round countdown instead of immediately starting wave
+    preRoundActive = true;
+    preRoundTimer = PRE_ROUND_DURATION;
     animate();
   });
 
@@ -4882,13 +5679,54 @@
     // ---- JUMP PHYSICS ----
     if (!isGrounded) {
       jumpVelY += GRAVITY;
+      const prevY = playerY;
       playerY += jumpVelY;
-      if (playerY <= GROUND_Y) {
+
+      // Check if landing on a table
+      let landedOnTable = false;
+      if (jumpVelY < 0) { // only when falling
+        for (const tbl of tablePlatforms) {
+          const dx = camera.position.x - tbl.x;
+          const dz = camera.position.z - tbl.z;
+          const distSq = dx * dx + dz * dz;
+          const tableEyeHeight = tbl.topY + GROUND_Y;
+          // Player fell through or past the table surface this frame
+          if (distSq < tbl.radius * tbl.radius && prevY >= tableEyeHeight - 0.1 && playerY <= tableEyeHeight) {
+            playerY = tableEyeHeight;
+            jumpVelY = 0;
+            isGrounded = true;
+            landingImpact = 0.08;
+            landedOnTable = true;
+            sfxLand();
+            break;
+          }
+        }
+      }
+
+      // Check ground
+      if (!landedOnTable && playerY <= GROUND_Y) {
         playerY = GROUND_Y;
         jumpVelY = 0;
         isGrounded = true;
         landingImpact = 0.12;
         sfxLand();
+      }
+    } else {
+      // If grounded, check if we walked off a table edge
+      let onTable = false;
+      for (const tbl of tablePlatforms) {
+        const dx = camera.position.x - tbl.x;
+        const dz = camera.position.z - tbl.z;
+        const tableEyeHeight = tbl.topY + GROUND_Y;
+        if (dx * dx + dz * dz < tbl.radius * tbl.radius && Math.abs(playerY - tableEyeHeight) < 0.1) {
+          onTable = true;
+          break;
+        }
+      }
+      // If we were on a table and walked off, start falling
+      if (!onTable && playerY > GROUND_Y + 0.1) {
+        isGrounded = false;
+        jumpVelY = 0;
       }
     }
     camera.position.y = playerY;
@@ -4897,6 +5735,27 @@
     if (landingImpact > 0) {
       landingImpact *= 0.85;
       if (landingImpact < 0.005) landingImpact = 0;
+    }
+
+    // ---- PRE-ROUND TIMER ----
+    if (preRoundActive) {
+      preRoundTimer--;
+      const preSeconds = Math.ceil(preRoundTimer / 60);
+      const prePrompt = document.getElementById('pre-round-prompt');
+      prePrompt.className = 'pre-round-prompt active';
+      prePrompt.innerHTML =
+        '<span class="pre-round-title">Get Ready</span>' +
+        '<span class="pre-round-sub">Look around the speakeasy</span>' +
+        '<span class="pre-round-timer">' + preSeconds + '</span>' +
+        '<span class="pre-round-skip">Press Enter to Skip</span>';
+
+      if (preRoundTimer <= 0) {
+        preRoundActive = false;
+        prePrompt.className = 'pre-round-prompt';
+        if (!isMultiplayer) {
+          startWave();
+        }
+      }
     }
 
     // ---- COMBO TIMER ----
@@ -4972,22 +5831,62 @@
     }
 
     // ---- SHOP PHASE LOGIC ----
-    if (isShopPhase && !isShopOpen) {
+    if (isShopPhase && !isShopOpen && !preRoundActive) {
+      // Countdown timer
+      shopTimer--;
+      const secondsLeft = Math.ceil(shopTimer / 60);
+
+      // Auto-start next wave when timer runs out
+      if (shopTimer <= 0 && !isMultiplayer) {
+        endShopPhase();
+      } else if (shopTimer <= 0 && isMultiplayer && ws) {
+        ws.send(JSON.stringify({ type: 'shopDone' }));
+        shopTimer = 60;
+      }
+
       // Pulse the bar glow
       if (shopBarGlow) {
         shopBarGlow.material.opacity = 0.2 + Math.sin(performance.now() * 0.005) * 0.15;
       }
+
+      // Animate 3D arrow — bob up and down
+      if (shopArrow3D && shopArrow3D.visible) {
+        shopArrow3D.position.y = 5.5 + Math.sin(performance.now() * 0.003) * 0.5;
+        shopArrow3D.rotation.y += 0.02;
+        // Pulse opacity
+        shopArrow3D.children.forEach(child => {
+          if (child.isMesh && child.material) {
+            child.material.opacity = 0.6 + Math.sin(performance.now() * 0.005) * 0.3;
+          }
+        });
+      }
+
       // Check proximity and E key
       const barPrompt = document.getElementById('bar-prompt');
+      const promptText = barPrompt.querySelector('.prompt-text');
+      const timerText = barPrompt.querySelector('.timer-text');
       if (isNearBar()) {
-        barPrompt.querySelector('.prompt-text').textContent = 'Press E — Open Shop';
-        if (keys['KeyE']) {
-          keys['KeyE'] = false; // consume
-          openShop();
-        }
+        promptText.textContent = 'Press E — Open Shop';
       } else {
-        barPrompt.querySelector('.prompt-text').textContent = 'Approach the Bar';
+        promptText.textContent = 'Approach the Bar';
       }
+      timerText.textContent = secondsLeft + 's';
+      // Flash timer red when under 10 seconds
+      if (secondsLeft <= 10) {
+        timerText.style.color = 'var(--burgundy-bright)';
+        timerText.style.textShadow = '0 0 15px rgba(155,45,63,0.5)';
+      } else {
+        timerText.style.color = '';
+        timerText.style.textShadow = '';
+      }
+
+      if (isNearBar() && keys['KeyE']) {
+        keys['KeyE'] = false;
+        openShop();
+      }
+    } else if (!isShopPhase) {
+      // Hide 3D arrow during combat
+      if (shopArrow3D) shopArrow3D.visible = false;
     }
 
     // Gun sway / shop lowering
@@ -5036,7 +5935,7 @@
         enemiesToSpawn--;
         spawnTimer = 0;
       }
-    } else if (enemiesAlive <= 0 && !isShopPhase) {
+    } else if (enemiesAlive <= 0 && !isShopPhase && wave > 0 && !preRoundActive) {
       startShopPhase();
     }
     }
@@ -5160,7 +6059,18 @@
       _bdir.copy(b.dir).multiplyScalar(b.speed || 2.5);
       b.mesh.position.add(_bdir);
       b.life--;
-      if (b.life <= 0) { scene.remove(b.mesh); bullets.splice(i, 1); }
+      // Check pillar collision
+      let hitPil = false;
+      for (const pil of pillarPositions) {
+        const pdx = b.mesh.position.x - pil.x;
+        const pdz = b.mesh.position.z - pil.z;
+        if (pdx * pdx + pdz * pdz < pil.radius * pil.radius) {
+          hitPil = true;
+          spawnParticles(b.mesh.position.clone(), 0xc9a84c, 2);
+          break;
+        }
+      }
+      if (hitPil || b.life <= 0) { scene.remove(b.mesh); bullets.splice(i, 1); }
     }
 
     // Update enemy bullets — check if they hit the player
@@ -5171,6 +6081,24 @@
       b.mesh.position.add(_bdir);
       b.life -= gameSpeed;
 
+      // Check if bullet hit a pillar
+      let hitPillar = false;
+      for (const pil of pillarPositions) {
+        const pdx = b.mesh.position.x - pil.x;
+        const pdz = b.mesh.position.z - pil.z;
+        if (pdx * pdx + pdz * pdz < pil.radius * pil.radius) {
+          hitPillar = true;
+          // Spark particles on impact
+          spawnParticles(b.mesh.position.clone(), 0x888888, 2);
+          break;
+        }
+      }
+      if (hitPillar) {
+        scene.remove(b.mesh);
+        enemyBullets.splice(i, 1);
+        continue;
+      }
+
       // Check hit against player (sphere around camera)
       const dx = b.mesh.position.x - camera.position.x;
       const dy = b.mesh.position.y - camera.position.y;
@@ -5179,7 +6107,9 @@
       if (distSq < 1.0) { // hit radius ~1
         const rawDmg = 6 + Math.min(12, Math.floor(wave * 0.4));
         const totalReduction = damageReduction + getAccessoryEffect('armor');
-        health -= Math.max(1, Math.round(rawDmg * (1 - Math.min(0.7, totalReduction))));
+        const finalDmg = Math.max(1, Math.round(rawDmg * (1 - Math.min(0.7, totalReduction))));
+        health -= finalDmg;
+        roundDamageTaken += finalDmg;
         sfxDamage();
         const dov = document.getElementById('damage-overlay');
         dov.classList.remove('hit');
@@ -5242,6 +6172,41 @@
       lamp1.intensity = 2.5 + Math.sin(t * 0.003) * 0.3;
       lamp2.intensity = 2 + Math.cos(t * 0.004) * 0.25;
       lamp3.intensity = 1.5 + Math.sin(t * 0.002) * 0.2;
+    }
+
+    // ---- BARTENDER ANIMATION ----
+    const btUd = bartenderGroup.userData;
+    if (btUd.rightArmPivot) {
+      // Circular polishing motion
+      const polishPhase = t * 0.004;
+      btUd.rightArmPivot.rotation.x = Math.sin(polishPhase) * 0.3;
+      btUd.rightArmPivot.rotation.z = Math.cos(polishPhase) * 0.15;
+      // Rag follows hand
+      if (btUd.rag) {
+        btUd.rag.rotation.y = Math.sin(polishPhase * 1.5) * 0.3;
+      }
+    }
+    // Subtle body sway
+    bartenderGroup.rotation.y = Math.sin(t * 0.001) * 0.05;
+    // Occasional head look around
+    const headLook = Math.sin(t * 0.0008) * 0.15;
+    bartenderGroup.children.forEach(child => {
+      if (child.geometry && child.geometry.parameters &&
+          child.geometry.parameters.width === 0.45 &&
+          child.geometry.parameters.height === 0.5) {
+        child.rotation.y = headLook;
+      }
+    });
+
+    // ---- DOOR SWING ANIMATION ----
+
+    // ---- 3D SMOKE DRIFT ----
+    for (const sp of smokeParticles3D) {
+      sp.phase += sp.speed;
+      sp.mesh.position.x = sp.baseX + Math.sin(sp.phase) * sp.drift * 8;
+      sp.mesh.position.y = sp.baseY + Math.sin(sp.phase * 0.7) * sp.drift * 2;
+      sp.mesh.position.z = sp.baseZ + Math.cos(sp.phase * 0.5) * sp.drift * 6;
+      sp.mesh.material.opacity = 0.02 + Math.sin(sp.phase * 0.3) * 0.015;
     }
 
     // ---- DOOR SWING ANIMATION ----
