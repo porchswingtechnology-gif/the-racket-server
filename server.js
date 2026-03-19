@@ -329,6 +329,21 @@ wss.on('connection', (ws) => {
         }, ws);
         break;
       }
+
+      case 'skipPreRound': {
+        if (!playerRoom) break;
+        const player = playerRoom.players.get(ws);
+        if (player) player.skipVote = true;
+        let allSkip = true;
+        for (const [, p] of playerRoom.players) {
+          if (!p.skipVote) { allSkip = false; break; }
+        }
+        if (allSkip && playerRoom.state === 'lobby') {
+          for (const [, p] of playerRoom.players) p.skipVote = false;
+          startWave(playerRoom);
+        }
+        break;
+      }
     }
   });
 
