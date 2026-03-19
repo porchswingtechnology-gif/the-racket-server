@@ -1616,8 +1616,8 @@
 
   function applyAccessoryEffects() {
     bonusDamage = upgrades.damage.level + getAccessoryEffect('bonusDmg');
-    damageReduction = upgrades.armor.level * 0.08 + getAccessoryEffect('armor');
-    moveSpeedMult = 1 + upgrades.speed.level * 0.08 + getAccessoryEffect('moveSpeed');
+    damageReduction = (1 - 1 / (1 + upgrades.armor.level * 0.12)) + getAccessoryEffect('armor');
+    moveSpeedMult = 1 + Math.log(1 + upgrades.speed.level * 0.3) + getAccessoryEffect('moveSpeed');
   }
 
   // ---- WEAPON SYSTEM ----
@@ -1685,9 +1685,9 @@
 
   // ---- UPGRADES ----
   const upgrades = {
-    damage:   { name: 'Hollow Points',    desc: '+1 damage per level',        level: 0, maxLevel: 8, baseCost: 200,  costMult: 1.5 },
-    armor:    { name: 'Vest Lining',      desc: 'Reduce incoming damage',     level: 0, maxLevel: 8, baseCost: 250,  costMult: 1.5 },
-    speed:    { name: 'Lighter Shoes',    desc: 'Faster movement speed',      level: 0, maxLevel: 6, baseCost: 200,  costMult: 1.5 },
+    damage:   { name: 'Hollow Points',    desc: '+1 damage per level',        level: 0, maxLevel: 99, baseCost: 200,  costMult: 1.5 },
+    armor:    { name: 'Vest Lining',      desc: 'Reduce incoming damage',     level: 0, maxLevel: 99, baseCost: 250,  costMult: 1.5 },
+    speed:    { name: 'Lighter Shoes',    desc: 'Faster movement speed',      level: 0, maxLevel: 99, baseCost: 200,  costMult: 1.5 },
     healKit:  { name: 'Whiskey Double',   desc: 'Restore 50 health now',      level: 0, maxLevel: 99, baseCost: 150, costMult: 1.0 },
   };
 
@@ -2531,7 +2531,7 @@
 
       const levelText = key === 'healKit'
         ? ''
-        : 'Level ' + u.level + ' / ' + u.maxLevel;
+        : 'Level ' + u.level;
       const priceText = isMaxed ? 'MAXED' : isHealMaxed ? 'FULL HP' : '$' + cost.toLocaleString();
 
       item.innerHTML =
@@ -2682,8 +2682,8 @@
 
     applyUpgrades();
     bonusDamage = upgrades.damage.level + getAccessoryEffect('bonusDmg');
-    damageReduction = upgrades.armor.level * 0.08 + getAccessoryEffect('armor');
-    moveSpeedMult = 1 + upgrades.speed.level * 0.08 + getAccessoryEffect('moveSpeed');
+    damageReduction = (1 - 1 / (1 + upgrades.armor.level * 0.12)) + getAccessoryEffect('armor');
+    moveSpeedMult = 1 + Math.log(1 + upgrades.speed.level * 0.3) + getAccessoryEffect('moveSpeed');
 
     sfxPurchase();
     updateHUD();
@@ -3855,7 +3855,7 @@
           const mult = getComboMultiplier();
           const scoreBonus = 1 + getAccessoryEffect('scoreBonus');
           const streakMult = activeStreak === 'bounty' ? 2 : 1;
-          score += Math.floor((e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
+          score += Math.floor((e.isKiley ? 3000 : e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
           comboCount++; comboTimer = Math.floor(COMBO_WINDOW * (1 + getAccessoryEffect('comboTimer')));
           streakCount++; checkStreaks(); sfxCombo();
           const dropRate = 0.3 + getAccessoryEffect('dropChance');
@@ -4380,6 +4380,270 @@
     sfxBossRoar();
   }
 
+  // ---- KILEY — THE ULTIMATE BOSS ----
+  function createKileyMesh() {
+    const group = new THREE.Group();
+    const kileyMat = new THREE.MeshStandardMaterial({ color: 0xf0e6d0, roughness: 0.35, metalness: 0.15 });
+    const kileyAccent = new THREE.MeshStandardMaterial({ color: 0x9b2d3f, roughness: 0.3, metalness: 0.4 });
+    const skinMat = new THREE.MeshStandardMaterial({ color: 0xc4906a, roughness: 0.8 });
+    const goldMat = new THREE.MeshStandardMaterial({ color: 0xc9a84c, roughness: 0.15, metalness: 0.9 });
+    const gunMat = new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.8, roughness: 0.3 });
+
+    // Massive legs
+    for (const sx of [-0.4, 0.4]) {
+      const thigh = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1.0, 0.55), kileyMat);
+      thigh.position.set(sx, -0.2, 0); group.add(thigh);
+      const shin = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.9, 0.5), kileyMat);
+      shin.position.set(sx, -1.1, 0); group.add(shin);
+      const shoe = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.22, 0.65),
+        new THREE.MeshStandardMaterial({ color: 0xf0e6d0, roughness: 0.4, metalness: 0.3 }));
+      shoe.position.set(sx, -1.65, 0.05); group.add(shoe);
+      const shoeTrim = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.04, 0.67), goldMat);
+      shoeTrim.position.set(sx, -1.55, 0.05); group.add(shoeTrim);
+    }
+
+    // Huge torso
+    const body = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.7, 0.9), kileyMat);
+    body.position.y = 0.85; group.add(body);
+    // Crimson lapels
+    for (const sx of [-0.45, 0.45]) {
+      const lapel = new THREE.Mesh(new THREE.BoxGeometry(0.35, 1.4, 0.08), kileyAccent);
+      lapel.position.set(sx, 0.85, 0.46); group.add(lapel);
+    }
+    // Gold chain
+    const chain = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.04, 0.06), goldMat);
+    chain.position.set(0, 1.0, 0.47); group.add(chain);
+    // Pocket watch
+    const watch = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.03, 6), goldMat);
+    watch.rotation.x = Math.PI / 2; watch.position.set(0.35, 0.95, 0.48); group.add(watch);
+
+    // Shoulders with gold epaulettes
+    const shoulders = new THREE.Mesh(new THREE.BoxGeometry(2.1, 0.3, 0.95), kileyMat);
+    shoulders.position.y = 1.7; group.add(shoulders);
+    for (const sx of [-1.0, 1.0]) {
+      const ep = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.08, 0.55), goldMat);
+      ep.position.set(sx, 1.85, 0); group.add(ep);
+      for (let i = 0; i < 4; i++) {
+        const fringe = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.12, 0.03), goldMat);
+        fringe.position.set(sx + (i - 1.5) * 0.08, 1.78, 0.25); group.add(fringe);
+      }
+    }
+    // Gold buttons
+    for (let i = 0; i < 4; i++) {
+      const btn = new THREE.Mesh(new THREE.SphereGeometry(0.05, 4, 4), goldMat);
+      btn.position.set(0, 1.3 - i * 0.3, 0.48); group.add(btn);
+    }
+
+    // Arms with dual tommy guns
+    for (const sx of [-1.15, 1.15]) {
+      const arm = new THREE.Mesh(new THREE.BoxGeometry(0.4, 1.1, 0.45), kileyMat);
+      arm.position.set(sx, 1.0, 0); group.add(arm);
+      const forearm = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.35, 0.6), kileyMat);
+      forearm.position.set(sx, 0.4, 0.4); group.add(forearm);
+      const hand = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.28, 0.28), skinMat);
+      hand.position.set(sx, 0.4, 0.72); group.add(hand);
+      // Tommy gun
+      const gunBody = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.12, 0.65), gunMat);
+      gunBody.position.set(sx, 0.42, 1.05); group.add(gunBody);
+      const gunBarrel = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.06, 0.35), gunMat);
+      gunBarrel.position.set(sx, 0.44, 1.45); group.add(gunBarrel);
+      const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.08, 6), gunMat);
+      drum.rotation.x = Math.PI / 2; drum.position.set(sx, 0.32, 0.9); group.add(drum);
+      const gunGold = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.03, 0.1), goldMat);
+      gunGold.position.set(sx, 0.49, 0.85); group.add(gunGold);
+      // Gold rings
+      for (let i = 0; i < 2; i++) {
+        const ring = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.03, 6), goldMat);
+        ring.position.set(sx + (i - 0.5) * 0.08, 0.38, 0.75); group.add(ring);
+      }
+    }
+
+    // Head — wide, ugly, feminine
+    const head = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.75, 0.7), skinMat);
+    head.position.y = 2.2; group.add(head);
+    // Wide jaw / jowls
+    const jaw = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.25, 0.55), skinMat);
+    jaw.position.set(0, 1.95, 0.05); group.add(jaw);
+    // Big nose
+    const nose = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.2, 0.2), skinMat);
+    nose.position.set(0, 2.15, 0.38); group.add(nose);
+    // Heavy brow ridge
+    const brow = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.1, 0.15), skinMat);
+    brow.position.set(0, 2.35, 0.3); group.add(brow);
+    // Beady eyes
+    for (const sx of [-0.15, 0.15]) {
+      const eye = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.08, 0.05),
+        new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.3 }));
+      eye.position.set(sx, 2.28, 0.36); group.add(eye);
+      const pupil = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.06, 0.05),
+        new THREE.MeshStandardMaterial({ color: 0x1a1a1a }));
+      pupil.position.set(sx, 2.28, 0.39); group.add(pupil);
+    }
+    // Mouth — open showing teeth with GAP
+    const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.12, 0.1),
+      new THREE.MeshStandardMaterial({ color: 0x2a0a0a, roughness: 0.9 }));
+    mouth.position.set(0, 2.02, 0.33); group.add(mouth);
+    // Upper teeth — with big gap in the middle
+    for (const tx of [-0.15, -0.1, -0.05, 0.05, 0.1, 0.15]) {
+      // Skip the two center positions to make a gap
+      if (Math.abs(tx) < 0.04) continue;
+      const tooth = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.06, 0.04),
+        new THREE.MeshStandardMaterial({ color: 0xe8dcc0, roughness: 0.5 }));
+      tooth.position.set(tx, 2.06, 0.36); group.add(tooth);
+    }
+    // Lower teeth (crooked)
+    for (const tx of [-0.12, -0.04, 0.05, 0.13]) {
+      const tooth = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.05, 0.04),
+        new THREE.MeshStandardMaterial({ color: 0xd8ccaa, roughness: 0.6 }));
+      tooth.position.set(tx, 1.98, 0.36); group.add(tooth);
+    }
+    // Messy wild hair — big and unruly
+    const hairBack = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.5, 0.8),
+      new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.9 }));
+    hairBack.position.set(0, 2.45, -0.05); group.add(hairBack);
+    // Hair sides — puffed out
+    for (const sx of [-0.45, 0.45]) {
+      const hairSide = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.6, 0.6),
+        new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.9 }));
+      hairSide.position.set(sx, 2.3, 0); group.add(hairSide);
+    }
+    // Messy bangs
+    const bangs = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.15, 0.3),
+      new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.9 }));
+    bangs.position.set(0, 2.52, 0.2); group.add(bangs);
+    // Wild strands sticking up
+    for (let i = 0; i < 5; i++) {
+      const strand = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.2 + Math.random() * 0.15, 0.04),
+        new THREE.MeshStandardMaterial({ color: 0x2a1a0a, roughness: 0.9 }));
+      strand.position.set((Math.random() - 0.5) * 0.6, 2.7 + Math.random() * 0.1, (Math.random() - 0.5) * 0.3);
+      strand.rotation.z = (Math.random() - 0.5) * 0.5;
+      group.add(strand);
+    }
+    // Gaudy gold earrings
+    for (const sx of [-0.42, 0.42]) {
+      const earring = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.03, 6), goldMat);
+      earring.position.set(sx, 2.1, 0.05); group.add(earring);
+    }
+    // Thick red lipstick (on the mouth area)
+    const lipstick = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.04, 0.06),
+      new THREE.MeshStandardMaterial({ color: 0xcc1133, roughness: 0.4 }));
+    lipstick.position.set(0, 2.09, 0.35); group.add(lipstick);
+    // Mole on cheek
+    const mole = new THREE.Mesh(new THREE.SphereGeometry(0.03, 4, 4),
+      new THREE.MeshStandardMaterial({ color: 0x3a2a1a }));
+    mole.position.set(0.25, 2.12, 0.36); group.add(mole);
+
+    // GOLD CROWN
+    const crownBase = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.42, 0.15, 8), goldMat);
+    crownBase.position.y = 2.62; group.add(crownBase);
+    for (let i = 0; i < 5; i++) {
+      const a = (i / 5) * Math.PI * 2;
+      const pt = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.2, 0.08), goldMat);
+      pt.position.set(Math.cos(a) * 0.35, 2.8, Math.sin(a) * 0.35); group.add(pt);
+      const jewel = new THREE.Mesh(new THREE.SphereGeometry(0.04, 4, 4),
+        new THREE.MeshStandardMaterial({ color: 0xff2233, emissive: 0xff0011, emissiveIntensity: 0.8 }));
+      jewel.position.set(Math.cos(a) * 0.35, 2.92, Math.sin(a) * 0.35); group.add(jewel);
+    }
+    const rubyCenter = new THREE.Mesh(new THREE.SphereGeometry(0.07, 6, 6),
+      new THREE.MeshStandardMaterial({ color: 0xff1122, emissive: 0xff0011, emissiveIntensity: 1.2 }));
+    rubyCenter.position.set(0, 2.75, 0.38); group.add(rubyCenter);
+
+    // Menacing red aura
+    const auraLight = new THREE.PointLight(0xff2233, 1.5, 10);
+    auraLight.position.set(0, 2.2, 0.5); group.add(auraLight);
+    group.userData.auraLight = auraLight;
+    group.userData.gunBarrel = null;
+    group.userData.leftThigh = null;
+
+    group.scale.set(1.3, 1.3, 1.3);
+    group.position.y = 2.0;
+    group.castShadow = true;
+    return group;
+  }
+
+  function spawnKiley() {
+    const kileyHP = 80 + wave * 12 + Math.floor(wave * wave * 0.6);
+    const mesh = createKileyMesh();
+    const door = doors[Math.floor(Math.random() * doors.length)];
+    door.swingTarget = Math.PI / 1.8;
+    mesh.position.set(door.spawnX, 2.0, door.spawnZ);
+    scene.add(mesh);
+    const kiley = {
+      mesh, type: 'boss', hp: kileyHP, maxHp: kileyHP,
+      speed: Math.min(0.04, 0.018 + wave * 0.001),
+      alive: true, hitTimer: 0, attackCooldown: 0,
+      isBoss: true, isKiley: true, attackPhase: 0,
+      burstCount: 0,
+      chargeTimer: 300 + Math.floor(Math.random() * 120),
+      isCharging: false, chargeSpeed: 0, chargeDirX: 0, chargeDirZ: 0, chargeDuration: 0
+    };
+    enemies.push(kiley);
+    enemiesAlive++;
+    bossActive = kiley;
+    bossHealthBarVisible = true;
+    sfxKileyRoar();
+  }
+
+  function sfxKileyRoar() {
+    if (!audioCtx) return;
+    const t = audioCtx.currentTime;
+    const master = getMaster();
+    master.gain.value = 0.6;
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(35, t);
+    osc.frequency.linearRampToValueAtTime(55, t + 0.4);
+    osc.frequency.linearRampToValueAtTime(25, t + 1.2);
+    const lp = audioCtx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = 150;
+    g.gain.setValueAtTime(0.5, t);
+    g.gain.linearRampToValueAtTime(0.7, t + 0.4);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 1.5);
+    osc.connect(lp); lp.connect(g); g.connect(master);
+    osc.start(t); osc.stop(t + 1.5);
+    const bufSize = audioCtx.sampleRate * 1.0;
+    const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * 0.4 * (1 - i / bufSize);
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = buf;
+    const ng = audioCtx.createGain();
+    ng.gain.setValueAtTime(0.2, t);
+    ng.gain.exponentialRampToValueAtTime(0.001, t + 1.2);
+    const nlp = audioCtx.createBiquadFilter();
+    nlp.type = 'lowpass'; nlp.frequency.value = 100;
+    noise.connect(nlp); nlp.connect(ng); ng.connect(master);
+    noise.start(t); noise.stop(t + 1.2);
+    const osc2 = audioCtx.createOscillator();
+    const g2 = audioCtx.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(50, t);
+    osc2.frequency.exponentialRampToValueAtTime(20, t + 0.3);
+    g2.gain.setValueAtTime(0.8, t);
+    g2.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+    osc2.connect(g2); g2.connect(master);
+    osc2.start(t); osc2.stop(t + 0.4);
+  }
+
+  function sfxKileyCharge() {
+    if (!audioCtx) return;
+    const t = audioCtx.currentTime;
+    const master = getMaster();
+    master.gain.value = 0.4;
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(80, t);
+    osc.frequency.exponentialRampToValueAtTime(250, t + 0.5);
+    const lp = audioCtx.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = 400;
+    g.gain.setValueAtTime(0.3, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+    osc.connect(lp); lp.connect(g); g.connect(master);
+    osc.start(t); osc.stop(t + 0.6);
+  }
+
   // ---- GRENADE SYSTEM ----
   function throwGrenade() {
     if (grenades <= 0 || grenadeCooldown > 0 || isShopPhase) return;
@@ -4460,7 +4724,7 @@
           const mult = getComboMultiplier();
           const scoreBonus = 1 + getAccessoryEffect('scoreBonus');
           const streakMult = activeStreak === 'bounty' ? 2 : 1;
-          score += Math.floor((e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
+          score += Math.floor((e.isKiley ? 3000 : e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
           comboCount++;
           comboTimer = Math.floor(COMBO_WINDOW * (1 + getAccessoryEffect('comboTimer')));
           streakCount++;
@@ -4514,8 +4778,10 @@
     waveAnnounceTimer = 120;
     respawnHazards();
 
-    // Boss every 5 waves
-    if (wave % 5 === 0) {
+    // Boss every 5 waves — Kiley every 10, The Don otherwise
+    if (wave % 10 === 0) {
+      setTimeout(() => { if (isPlaying) spawnKiley(); }, 2500);
+    } else if (wave % 5 === 0) {
       setTimeout(() => { if (isPlaying) spawnBoss(); }, 2000);
     }
   }
@@ -4651,7 +4917,7 @@
           enemiesAlive--;
           if (enemy.isBoss) { bossActive = null; bossHealthBarVisible = false; }
           const mult = getComboMultiplier();
-          const baseScore = enemy.isBoss ? 1000 : (enemy.type === 'fast' ? 200 : 100);
+          const baseScore = enemy.isKiley ? 3000 : enemy.isBoss ? 1000 : (enemy.type === 'fast' ? 200 : 100);
           const headBonus = isHeadshot ? 2 : 1;
           const scoreBonus = 1 + getAccessoryEffect('scoreBonus');
           const streakMult = activeStreak === 'bounty' ? 2 : 1;
@@ -4932,10 +5198,11 @@
     const bossEl = document.getElementById('boss-health');
     if (bossActive && bossActive.alive && bossHealthBarVisible) {
       const pct = Math.max(0, (bossActive.hp / bossActive.maxHp) * 100);
+      const isK = bossActive.isKiley;
       bossEl.className = 'boss-health active';
       bossEl.innerHTML =
-        '<span class="boss-health-name">The Don</span>' +
-        '<div class="boss-health-track"><div class="boss-health-fill" style="width:' + pct + '%"></div></div>';
+        '<span class="boss-health-name" style="' + (isK ? 'color:#e8c960;text-shadow:0 0 20px rgba(232,201,96,0.5);font-size:28px;' : '') + '">' + (isK ? 'KILEY' : 'The Don') + '</span>' +
+        '<div class="boss-health-track" style="' + (isK ? 'border-color:#c9a84c;' : '') + '"><div class="boss-health-fill" style="width:' + pct + '%;' + (isK ? 'background:linear-gradient(90deg,#8a6f2e,#e8c960);box-shadow:0 0 12px rgba(232,201,96,0.4);' : '') + '"></div></div>';
     } else {
       bossEl.className = 'boss-health';
     }
@@ -5954,13 +6221,45 @@
       e.mesh.rotation.y = angle;
 
       if (dist > 2.2) {
-        e.mesh.position.x += (dx / dist) * e.speed * gameSpeed;
-        e.mesh.position.z += (dz / dist) * e.speed * gameSpeed;
+        // Kiley charge attack
+        if (e.isKiley && e.isCharging) {
+          e.mesh.position.x += e.chargeDirX * e.chargeSpeed * gameSpeed;
+          e.mesh.position.z += e.chargeDirZ * e.chargeSpeed * gameSpeed;
+          e.chargeDuration--;
+          // Charge trail particles
+          if (Math.random() < 0.3) spawnParticles(e.mesh.position.clone().add(new THREE.Vector3(0, 1, 0)), 0xc9a84c, 1);
+          if (e.chargeDuration <= 0) {
+            e.isCharging = false;
+            e.chargeTimer = 200 + Math.floor(Math.random() * 150);
+          }
+        } else {
+          e.mesh.position.x += (dx / dist) * e.speed * gameSpeed;
+          e.mesh.position.z += (dz / dist) * e.speed * gameSpeed;
+        }
+      }
+
+      // Kiley charge timer
+      if (e.isKiley && !e.isCharging && e.chargeTimer !== undefined) {
+        e.chargeTimer -= gameSpeed;
+        if (e.chargeTimer <= 0 && dist > 5) {
+          // Initiate charge toward player
+          e.isCharging = true;
+          e.chargeSpeed = 0.25;
+          e.chargeDirX = dx / dist;
+          e.chargeDirZ = dz / dist;
+          e.chargeDuration = 40;
+          sfxKileyCharge();
+        }
       }
 
       // Boss ground position
       if (e.isBoss) {
-        e.mesh.position.y = 1.55;
+        e.mesh.position.y = e.isKiley ? 2.0 : 1.55;
+      }
+
+      // Kiley aura pulse
+      if (e.isKiley && e.mesh.userData.auraLight) {
+        e.mesh.userData.auraLight.intensity = 1.5 + Math.sin(performance.now() * 0.006) * 0.8;
       }
 
       // Walking animation — legs swing (skip for boss since no leg refs)
@@ -5994,24 +6293,26 @@
       const attackRange = e.isBoss ? 35 : 25;
       if (dist < attackRange && dist > 1.5) {
         e.attackCooldown -= gameSpeed;
-        const baseFireCooldown = e.isBoss ? 40 : (e.type === 'fast' ? 70 : 100);
+        const kileyFireRate = e.isKiley ? 25 : 40;
+        const baseFireCooldown = e.isBoss ? kileyFireRate : (e.type === 'fast' ? 70 : 100);
         const fireCooldown = Math.floor(baseFireCooldown * (1 + getAccessoryEffect('enemySlow')));
         if (e.attackCooldown <= 0) {
-          // Boss fires bursts of 3
+          // Boss fires bursts — Kiley fires 5, Don fires 3
           if (e.isBoss) {
+            const burstMax = e.isKiley ? 5 : 3;
             e.burstCount = (e.burstCount || 0) + 1;
-            if (e.burstCount >= 3) {
-              e.attackCooldown = fireCooldown + 30;
+            if (e.burstCount >= burstMax) {
+              e.attackCooldown = fireCooldown + (e.isKiley ? 20 : 30);
               e.burstCount = 0;
             } else {
-              e.attackCooldown = 8; // quick burst gap
+              e.attackCooldown = e.isKiley ? 5 : 8;
             }
           } else {
             e.attackCooldown = fireCooldown + Math.floor(Math.random() * 40);
           }
 
           // Create enemy bullet aimed at player with some spread
-          const spread = e.isBoss ? 0.04 : 0.06;
+          const spread = e.isKiley ? 0.035 : (e.isBoss ? 0.04 : 0.06);
           const bulletDir = new THREE.Vector3(
             dx / dist + (Math.random() - 0.5) * spread,
             (camera.position.y - (e.mesh.position.y + 0.35)) / dist + (Math.random() - 0.5) * spread * 0.5,
@@ -6106,8 +6407,8 @@
       const distSq = dx * dx + dy * dy + dz * dz;
       if (distSq < 1.0) { // hit radius ~1
         const rawDmg = 6 + Math.min(12, Math.floor(wave * 0.4));
-        const totalReduction = damageReduction + getAccessoryEffect('armor');
-        const finalDmg = Math.max(1, Math.round(rawDmg * (1 - Math.min(0.7, totalReduction))));
+        const totalReduction = damageReduction;
+        const finalDmg = Math.max(1, Math.round(rawDmg * (1 - Math.min(0.85, totalReduction))));
         health -= finalDmg;
         roundDamageTaken += finalDmg;
         sfxDamage();
@@ -6276,7 +6577,7 @@
               const mult = getComboMultiplier();
               const scoreBonus = 1 + getAccessoryEffect('scoreBonus');
               const streakMult = activeStreak === 'bounty' ? 2 : 1;
-              score += Math.floor((e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
+              score += Math.floor((e.isKiley ? 3000 : e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
               comboCount++; comboTimer = Math.floor(COMBO_WINDOW * (1 + getAccessoryEffect('comboTimer')));
               streakCount++; checkStreaks(); sfxCombo();
             }
@@ -6336,7 +6637,7 @@
               const mult = getComboMultiplier();
               const scoreBonus = 1 + getAccessoryEffect('scoreBonus');
               const streakMult = activeStreak === 'bounty' ? 2 : 1;
-              score += Math.floor((e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
+              score += Math.floor((e.isKiley ? 3000 : e.isBoss ? 1000 : e.type === 'fast' ? 200 : 100) * mult * scoreBonus * streakMult);
               comboCount++; comboTimer = Math.floor(COMBO_WINDOW * (1 + getAccessoryEffect('comboTimer')));
               streakCount++; checkStreaks(); sfxCombo();
             }
