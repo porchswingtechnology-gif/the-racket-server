@@ -2824,11 +2824,11 @@
   const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 150);
   camera.position.set(0, 2, 0);
 
-  const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance' });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(1);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.BasicShadowMap;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.1;
   document.body.prepend(renderer.domElement);
@@ -2840,7 +2840,7 @@
   const dirLight = new THREE.DirectionalLight(0xffe8cc, 0.4);
   dirLight.position.set(20, 40, 10);
   dirLight.castShadow = true;
-  dirLight.shadow.mapSize.set(512, 512);
+  dirLight.shadow.mapSize.set(1024, 1024);
   dirLight.shadow.camera.near = 1;
   dirLight.shadow.camera.far = 100;
   dirLight.shadow.camera.left = -50;
@@ -5509,7 +5509,7 @@
             weapon: currentWeapon, health
           }));
         }
-      }, 50); // 20hz updates
+      }, 33); // 30hz updates
     }
 
     animate();
@@ -6364,11 +6364,12 @@
 
     // ---- INTERPOLATE OTHER PLAYERS ----
     for (const [pid, op] of otherPlayers) {
-      // Smooth position interpolation
+      // Smooth position interpolation (higher lerp for 30hz updates)
       const prevPosX = op.mesh.position.x;
       const prevPosZ = op.mesh.position.z;
-      op.mesh.position.x += (op.targetX - op.mesh.position.x) * 0.15;
-      op.mesh.position.z += (op.targetZ - op.mesh.position.z) * 0.15;
+      const lerpFactor = 0.2;
+      op.mesh.position.x += (op.targetX - op.mesh.position.x) * lerpFactor;
+      op.mesh.position.z += (op.targetZ - op.mesh.position.z) * lerpFactor;
 
       // Detect movement for walk animation
       const dx = op.mesh.position.x - prevPosX;
@@ -6380,7 +6381,7 @@
       let yawDiff = op.targetYaw - op.mesh.rotation.y;
       while (yawDiff > Math.PI) yawDiff -= Math.PI * 2;
       while (yawDiff < -Math.PI) yawDiff += Math.PI * 2;
-      op.mesh.rotation.y += yawDiff * 0.2;
+      op.mesh.rotation.y += yawDiff * 0.25;
 
       // Walking animation
       const ud = op.mesh.userData;
